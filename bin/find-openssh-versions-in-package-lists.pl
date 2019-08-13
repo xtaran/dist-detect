@@ -27,6 +27,7 @@ use lib "$Bin/../lib";
 use DPKG::Parse::FromHandle;
 
 use Mojo::File qw(path);
+use Mojo::SQLite;
 use DPKG::Parse::Packages;
 use IO::Uncompress::AnyUncompress qw($AnyUncompressError);
 
@@ -55,8 +56,10 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
 
     next unless $pkg;
     my $pkglistshort = path($pkglist)->basename;
+    my $os = $pkglistshort =~ s/^([^:]*):.*$/$1/r;
     my $version = $pkg->version;
     say("$version | $pkglistshort") if defined($version) && $version ne '';
     $db->query('replace into version2os(version,os,regexp,source,lastmod) '.
-               'values (?, ?, ?, ?, ?)', $version, $os, $url, time());
+               'values (?, ?, ?, ?, ?)',
+               $version, $os, $pkglistshort, path($pkglist)->stat->mtime);
 }
