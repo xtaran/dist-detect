@@ -29,7 +29,7 @@ Scenario
   as common in academia, data-centers with a lot of internet-facing,
   rented servers/racks, etc.
 
-* Find old, not yet streamlined/automated/documented deployments.
+* Find old, not yet streamlined / automated / documented deployments.
 
 ### Focus on Low Hanging Fruits
 
