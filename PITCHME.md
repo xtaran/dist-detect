@@ -10,15 +10,20 @@ Purpose
 
 Quickly get an idea …
 
-* … of the Linux/BSD/Unix distribution and distribution release of a
-  remote system …
+* of the Linux/BSD/Unix distribution and distribution release of a
+  remote system
 
-* … if the admin applies security updates regularily …
+* if the admin applies security updates regularily
 
-* … if the remote system is running an EoL release …
+* if the remote system is running an EoL release
 
-… just by looking at the responses of a few common network services
+just by looking at the responses of a few common network services
 (typically SSH and web servers), i.e. very fast.
+
+#HSLIDE
+
+Scenario
+--------
 
 This is especially useful in heterogenous networks (e.g. with BYOD or
 many self-managed machines) as common in academia, data-centers with a
@@ -34,23 +39,21 @@ lot of internet-facing, rented servers/racks, etc.
 Why Writing a Dedicated Program?
 --------------------------------
 
-* Scanning your own network for badly maintained / not updated Linux,
-  BSD and other Unix systems is currently tedious and slow, despite
-  you usually have good hints easily reachable.
+Scanning your own network for badly maintained / not updated Linux,
+BSD and other Unix systems is currently tedious and slow:
 
-    * Most vulnerability scanners (Nessus, OpenVAS and friends) still
-      test tons of (from this point of view unnecessary) stuff and
-      take rather long per host.
+* Most vulnerability scanners (Nessus, OpenVAS and friends) still test
+  tons of (from this point of view unnecessary) stuff and take rather
+  long per host.
 
-    * Many vulnerability scanners just look at the reported upstream
-      version and trigger a lot of false positives when a distribution
-      just fixes security issues instead of packaging new upstream
-      versions (which is rather common with so called "stable
-      releases").
+* Many vulnerability scanners just look at the reported upstream
+  version and trigger a lot of false positives when a distribution
+  just fixes security issues instead of packaging new upstream
+  versions (which is rather common with so called "stable releases").
 
-    * Nmap and friends don't look at server application versions to
-      determine the OS. Takes rather long, too, even witth `-T
-      aggressive`.
+* Nmap and friends don't look at server application versions to
+  determine the OS. Takes rather long, too, even witth `-T
+  aggressive`.
 
 #HSLIDE
 
@@ -73,25 +76,30 @@ General Idea
     * RHEL and macOS report OpenSSH version without the "p1" and hence
       this can be used to distinguish it from other distributions.
 
-* Check that version to determine …
+#HSLIDE
 
-    * … which OS/distribution is running. (Might report multiple
-      possibilities.)
+Capabilities
+------------
 
-        * … if the OS/distribution is EoL
+Check that version to determine …
 
-    * … which package version is running. (Might not be possible.)
+* which OS/distribution is running. (Might report multiple
+  possibilities.)
 
-        * … if the running package is the most recent security update.
+    * …f the OS/distribution is EoL
 
-        * … if not, for how long at least the admin hasn't applied
-          security updates.
+* which package version is running. (Might not be possible.)
 
-        * … if the server uses SSH backports
+    * if the running package is the most recent security update.
 
-        * … if the server uses proposed updates
+    * if not, for how long at least the admin hasn't applied security
+      updates.
 
-        * … if the server uses LTS repositories
+    * if the server uses SSH backports
+
+    * if the server uses proposed updates
+
+    * if the server uses LTS repositories
 
 * Bonus: Find SSH servers which still offer the known to be vulnerable
   SSHv1 protocol versions.
