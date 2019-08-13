@@ -264,15 +264,15 @@ Further Ideas
 
 * Also store results and scan dates in a database.
 
-* Maybe use repology.org instead of downloading package lists.
+* Maybe use repology.org instead of package lists.
 
 * Also check SMTP, HTTP and maybe other ports.
 
-* Maybe download and parse package changelogs for existing versions.
+* Parse package changelogs for existing versions.
 
 * Add optional scanning backends.
 
     * scanssh, pnscan, masscan, pf_ring?
-    * Shodan.io? (i.e. interpreting publicly available/found data)
+    * Shodan.io? (i.e. publicly available data)
 
 * Ping (fping?) before scan.
