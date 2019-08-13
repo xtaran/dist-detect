@@ -87,7 +87,7 @@ Check that version to determine …
 * which OS/distribution is running. (Might report multiple
   possibilities.)
 
-    * …f the OS/distribution is EoL
+    * if the OS/distribution is EoL
 
 * which package version is running. (Might not be possible.)
 
