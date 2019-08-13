@@ -33,8 +33,8 @@ Scenario
 
 ### Focus on Low Hanging Fruits
 
-* Nearly no False Positives: If the scanner finds something bad, it's bad.
-* False Negatives: Unknown or unclear versions stay unknown or unclear.
+* No False Positives: If the scanner finds something bad, it's bad.
+* False Negatives: Unknown/unclear versions stay unknown/ unclear.
 
 #HSLIDE
 
