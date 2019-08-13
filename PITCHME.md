@@ -25,15 +25,16 @@ just by looking at the responses of a few common network services
 Scenario
 --------
 
-This is especially useful in heterogenous networks (e.g. with BYOD or
-many self-managed machines) as common in academia, data-centers with a
-lot of internet-facing, rented servers/racks, etc., but also to find
-not yet streamlined deployments.
+* Heterogenous networks (e.g. with BYOD or many self-managed machines)
+  as common in academia, data-centers with a lot of internet-facing,
+  rented servers/racks, etc.
+
+* Find old, not yet streamlined/automated/documented deployments.
 
 ### Focus on Low Hanging Fruits
 
-* If the scanner finds something bad, it's quite sure → nearly no False Positives
-* Unknown or unclear versions stay unknown or unclear → will contain False Negatives
+* Nearly no False Positives: If the scanner finds something bad, it's bad.
+* False Negatives: Unknown or unclear versions stay unknown or unclear.
 
 #HSLIDE
 
@@ -258,8 +259,6 @@ TODO
 Further Ideas
 -------------
 
-(without specific order)
-
 * Also store results and scan dates in a database.
 
 * Check if using repology.org might be better than downloading
@@ -273,9 +272,7 @@ Further Ideas
 
 * Add optional scanning backends.
 
-    * scanssh
-    * pnscan
-    * masscan
+    * scanssh, pnscan, masscan
     * Shodan.io? (i.e. interpreting publicly available/found data)
 
 * Ping (fping?) before scan.
