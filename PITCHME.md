@@ -1,5 +1,5 @@
-Yet Unnanmed Unix Distribution Scanner
-======================================
+Dist-Detect
+===========
 
 Axel Beckert <axel@ethz.ch>
 
