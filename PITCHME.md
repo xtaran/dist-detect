@@ -264,14 +264,11 @@ Further Ideas
 
 * Also store results and scan dates in a database.
 
-* Check if using repology.org might be better than downloading
-  complete package lists.
+* Maybe use repology.org instead of downloading package lists.
 
-* Extend the system to also be able to check ports 80 and 443 and
-  maybe others.
+* Also check SMTP, HTTP and maybe other ports.
 
-* Maybe download and parse package changelogs to see which versions
-  actually existed.
+* Maybe download and parse package changelogs for existing versions.
 
 * Add optional scanning backends.
 
