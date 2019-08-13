@@ -239,7 +239,10 @@ TODO
 * Generate regular expressions to match service banners from package
   versions automatically based on scraped repository data.
 
-### Wanted, too
+#HSLIDE
+
+Wanted, too
+-----------
 
 * Unit testing
 
