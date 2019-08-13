@@ -27,7 +27,8 @@ Scenario
 
 This is especially useful in heterogenous networks (e.g. with BYOD or
 many self-managed machines) as common in academia, data-centers with a
-lot of internet-facing, rented servers/racks, etc.
+lot of internet-facing, rented servers/racks, etc., but also to find
+not yet streamlined deployments.
 
 ### Focus on Low Hanging Fruits
 
