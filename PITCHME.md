@@ -275,7 +275,7 @@ Further Ideas
 
 * Add optional scanning backends.
 
-    * scanssh, pnscan, masscan
+    * scanssh, pnscan, masscan, pf_ring?
     * Shodan.io? (i.e. interpreting publicly available/found data)
 
 * Ping (fping?) before scan.
