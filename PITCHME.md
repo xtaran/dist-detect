@@ -82,14 +82,13 @@ General Idea
 Capabilities
 ------------
 
-Check that version to determine …
+Check version to determine …
 
-* which OS/distribution is running. (Might report multiple
-  possibilities.)
+* which OS/distribution is running. (possibly ambiguous)
 
     * if the OS/distribution is EoL
 
-* which package version is running. (Might not be possible.)
+* which package version is running. (maybe impossible)
 
     * if the running package is the most recent security update.
 
