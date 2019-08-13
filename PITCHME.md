@@ -37,15 +37,14 @@ not yet streamlined deployments.
 
 #HSLIDE
 
-Why Writing a Dedicated Program?
---------------------------------
+Why a Dedicated Tool?
+---------------------
 
 Scanning your own network for badly maintained / not updated Linux,
 BSD and other Unix systems is currently tedious and slow:
 
-* Most vulnerability scanners (Nessus, OpenVAS and friends) still test
-  tons of (from this point of view unnecessary) stuff and take rather
-  long per host.
+* Most vulnerability scanners still test tons of (from this point of
+  view unnecessary) stuff and take rather long per host.
 
 * Many vulnerability scanners just look at the reported upstream
   version and trigger a lot of false positives when a distribution
