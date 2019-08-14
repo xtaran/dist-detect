@@ -50,6 +50,9 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     #p $pkglist;
     my $z = IO::Uncompress::AnyUncompress->new($pkglist)
         or die "anyuncompress failed: $AnyUncompressError";
+    # Skip empty package lists
+    next if $z->eof;
+
     my $pkgs = DPKG::Parse::FromHandle->new('handle' => $z);
     $pkgs->parse();
     #p $pkgs;
