@@ -59,8 +59,8 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     my $pkg = $pkgs->get_package(name => 'openssh-server')
         || $pkgs->get_package(name => 'ssh');
     #p $pkg;
-
     next unless $pkg;
+
     my $pkglistshort = path($pkglist)->basename;
     my $os = $pkglistshort =~ s/^([^:]*):.*$/$1/r;
     my $version = $pkg->version;
