@@ -30,11 +30,13 @@ sub new {
     return $ref;
 }
 
+# Based on DPKG::Parse's parse()
 sub parse {
     my $self = shift;
     $self->parse_package_format_from_handle;
 }
 
+# Based on DPKG::Parse's parse_package_format()
 sub parse_package_format_from_handle {
     my $self = shift;
     my $handle = $self->{handle};
