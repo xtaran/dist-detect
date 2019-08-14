@@ -12,7 +12,7 @@ use base 'DPKG::Parse';
 use Data::Printer;
 
 sub new {
-    my $pkg = shift;
+    my $self = shift;
     my %p = validate(@_,
         {
             'handle' => { 'isa' => [qw[IO::Handle]]},
@@ -26,31 +26,31 @@ sub new {
     $ref->{debug} = $p{debug};
     $ref->{'entryarray'} = [];
     $ref->{'entryhash'} = {};
-    bless($ref, $pkg);
+    bless($ref, $self);
     return $ref;
 }
 
 sub parse {
-    my $pkg = shift;
-    $pkg->parse_package_format_from_handle;
+    my $self = shift;
+    $self->parse_package_format_from_handle;
 }
 
 sub parse_package_format_from_handle {
-    my $pkg = shift;
+    my $self = shift;
     my $entry;
     my $line_num = -1;
     my $entry_line = 0;
-    STATUSLINE: while (my $line = $pkg->{handle}->getline) {
+    STATUSLINE: while (my $line = $self->{handle}->getline) {
         ++$line_num;
         $line =~ s/^\t/        /;
         if ($line =~ /^\n$/) {
             my $dpkg_entry = DPKG::Parse::Entry->new(
                 'data' => $entry,
-                'debug' => $pkg->debug,
+                'debug' => $self->debug,
                 'line_num' => $entry_line,
                 );
-            push(@{$pkg->{'entryarray'}}, $dpkg_entry);
-            $pkg->{'entryhash'}->{$dpkg_entry->package} = $dpkg_entry;
+            push(@{$self->{'entryarray'}}, $dpkg_entry);
+            $self->{'entryhash'}->{$dpkg_entry->package} = $dpkg_entry;
             $entry = undef;
             $entry_line = $line_num + 1;
             next STATUSLINE;
