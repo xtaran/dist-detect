@@ -77,6 +77,11 @@ foreach my $base_url (@mirrors) {
         next;
     }
 
+    my $distribution = ucfirst($base_url =~ s{^.*/([^/-]+)(-[^/]*)?/?$}{$1}r);
+    #p $base_url;
+    #p $distribution;
+    die "Couldn't determine distribution from $base_url" unless $distribution;
+
     my $dists = $res
         -> dom
         -> find('a[href]')
@@ -148,7 +153,8 @@ foreach my $base_url (@mirrors) {
             }
 
             my $archlist = path($found);
-            $filename = sprintf('%s%s:%s:%s',
+            $filename = sprintf('%s:%s%s:%s:%s',
+                                $distribution,
                                 $prefix,
                                 $dist,
                                 $archlist->dirname(),
