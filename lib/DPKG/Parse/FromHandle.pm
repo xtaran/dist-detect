@@ -37,7 +37,7 @@ sub parse {
 
 sub parse_package_format_from_handle {
     my $self = shift;
-    my $entry;
+    my $entry = '';
     my $line_num = -1;
     my $entry_line = 0;
     STATUSLINE: while (my $line = $self->{handle}->getline) {
@@ -51,7 +51,7 @@ sub parse_package_format_from_handle {
                 );
             push(@{$self->{'entryarray'}}, $dpkg_entry);
             $self->{'entryhash'}->{$dpkg_entry->package} = $dpkg_entry;
-            $entry = undef;
+            $entry = '';
             $entry_line = $line_num + 1;
             next STATUSLINE;
         }
