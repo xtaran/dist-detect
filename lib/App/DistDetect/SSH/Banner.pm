@@ -66,13 +66,28 @@ sub expected_banner_from_version {
 
     # Strip (Debian) epoch from OpenSSH package
     $banner =~ s/^\d+://;
+    my @potential_banners = ();
 
-    # Mange version to become a banner
-    $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1 $os-$2/;
+    my $v1 = supports_SSH_v1($version);
+    my $v2 = supports_SSH_v2($version);
 
-    # TODO: Handle SSHv1+2 vs SSHv2 only
+    if ($v2) {
+        push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1 $os-$2/r);
+    }
 
-    return $banner;
+    if ($v1 and $v2) {
+        push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.99-OpenSSH_$1 $os-$2/r);
+    }
+
+    if ($v1 and not $v2) {
+        # Neither the OpenSSH git repository (goes back to 1999) nor
+        # the Debian git repository (goes back to 2003) nor
+        # https://www.openssh.com/releasenotes.html (isn't detailed
+        # enough) shows when PROTOCOL_MINOR(_1) has been bumped to 5.
+        push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.5-OpenSSH_$1 $os-$2/r);
+    }
+
+    return @potential_banners;
 }
 
 =back
