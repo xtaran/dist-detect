@@ -37,10 +37,12 @@ sub parse {
 
 sub parse_package_format_from_handle {
     my $self = shift;
+    my $handle = $self->{handle};
     my $entry = '';
     my $line_num = -1;
     my $entry_line = 0;
-    STATUSLINE: while (my $line = $self->{handle}->getline) {
+    STATUSLINE: while (my $line = $handle->getline) {
+        #p $line;
         ++$line_num;
         $line =~ s/^\t/        /;
         if ($line =~ /^\n$/) {
