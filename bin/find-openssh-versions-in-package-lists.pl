@@ -31,6 +31,7 @@ use Mojo::SQLite;
 use DPKG::Parse::Packages;
 use IO::Uncompress::AnyUncompress qw($AnyUncompressError);
 
+# DEBUG HELPER
 use Data::Printer;
 
 my $pkglistdir = "$Bin/../package-lists";

@@ -8,6 +8,9 @@ use Params::Validate qw(:all);
 use Class::C3;
 use base 'DPKG::Parse';
 
+# DEBUG HELPER
+use Data::Printer;
+
 sub new {
     my $pkg = shift;
     my %p = validate(@_,
