@@ -30,6 +30,7 @@ use Mojo::File qw(path);
 use Mojo::SQLite;
 use DPKG::Parse::Packages;
 use Dpkg::Compression::FileHandle;
+use App::DistDetect::SSH::Banner;
 
 # DEBUG HELPER
 use Data::Printer;
@@ -75,10 +76,5 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
                'values (?, ?, ?, ?)',
                $version, $os, $pkglistshort, path($pkglist)->stat->mtime);
 
-    # Generate expected banner from version
-    my $banner = $version;
-    # Strip (Debian) epoch from OpenSSH package
-    $banner =~ s/^\d+://;
-    # Mange version to become a banner
-    $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1 $os-$2/;
+    my $banner = expected_banner_from_version($version, $os);
     p $banner;
