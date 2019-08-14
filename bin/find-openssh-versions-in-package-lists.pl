@@ -29,7 +29,7 @@ use DPKG::Parse::FromHandle;
 use Mojo::File qw(path);
 use Mojo::SQLite;
 use DPKG::Parse::Packages;
-use IO::Uncompress::AnyUncompress qw($AnyUncompressError);
+use Dpkg::Compression::FileHandle;
 
 # DEBUG HELPER
 use Data::Printer;
@@ -48,8 +48,9 @@ my $db = $sql->db;
 
 foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     #p $pkglist;
-    my $z = IO::Uncompress::AnyUncompress->new($pkglist)
-        or die "anyuncompress failed: $AnyUncompressError";
+    my $z = Dpkg::Compression::FileHandle->new(filename => $pkglist);
+    $z->ensure_open('r');
+
     # Skip empty package lists
     next if $z->eof;
 
