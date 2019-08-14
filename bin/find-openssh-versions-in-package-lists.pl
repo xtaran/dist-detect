@@ -61,11 +61,23 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     #p $pkg;
     next unless $pkg;
 
+    # Strip directory name
     my $pkglistshort = path($pkglist)->basename;
-    my $os = $pkglistshort =~ s/^([^:]*):.*$/$1/r;
+
+    # Extract information from package list file name
+    my ($os, $repo, $arch) = split(/:/, $pkglistshort);
+    my $release = $repo =~ s/-.*$//r;
+
     my $version = $pkg->version;
     say("$version | $pkglistshort") if defined($version) && $version ne '';
     $db->query('replace into version2os(version,os,source,lastmod) '.
                'values (?, ?, ?, ?)',
                $version, $os, $pkglistshort, path($pkglist)->stat->mtime);
-}
+
+    # Generate expected banner from version
+    my $banner = $version;
+    # Strip (Debian) epoch from OpenSSH package
+    $banner =~ s/^\d+://;
+    # Mange version to become a banner
+    $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1 $os-$2/;
+    p $banner;
