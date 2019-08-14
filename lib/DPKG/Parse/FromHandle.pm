@@ -45,7 +45,7 @@ sub parse_package_format_from_handle {
         #p $line;
         ++$line_num;
         $line =~ s/^\t/        /;
-        if ($line =~ /^\n$/) {
+        if ($line =~ /^\n$/ or $handle->eof) {
             my $dpkg_entry = DPKG::Parse::Entry->new(
                 'data' => $entry,
                 'debug' => $self->debug,
