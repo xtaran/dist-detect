@@ -54,7 +54,7 @@ our @EXPORT = qw(
     supports_SSH_v1
     supports_SSH_v2
     supports_DebianBanner_setting
-    hardcoded_DebianBanner_setting
+    hardcoded_DebianBanner
 );
 
 =item upstream_version_portable($package_version)

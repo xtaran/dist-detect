@@ -70,13 +70,27 @@ sub expected_banner_from_version {
 
     my $v1 = supports_SSH_v1($version);
     my $v2 = supports_SSH_v2($version);
+    my $db_set = supports_DebianBanner_setting($version);
+    my $db_hard = hardcoded_DebianBanner($version);
 
     if ($v2) {
-        push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1 $os-$2/r);
+        if ($db_set or $db_hard) {
+            push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1 $os-$2/r);
+        }
+
+        if (!$db_hard) {
+            push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-2.0-OpenSSH_$1/r);
+        }
     }
 
     if ($v1 and $v2) {
-        push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.99-OpenSSH_$1 $os-$2/r);
+        if ($db_set or $db_hard) {
+            push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.99-OpenSSH_$1 $os-$2/r);
+        }
+
+        if (!$db_hard) {
+            push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.99-OpenSSH_$1/r);
+        }
     }
 
     if ($v1 and not $v2) {
@@ -84,7 +98,13 @@ sub expected_banner_from_version {
         # the Debian git repository (goes back to 2003) nor
         # https://www.openssh.com/releasenotes.html (isn't detailed
         # enough) shows when PROTOCOL_MINOR(_1) has been bumped to 5.
-        push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.5-OpenSSH_$1 $os-$2/r);
+        if ($db_set or $db_hard) {
+            push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.5-OpenSSH_$1 $os-$2/r);
+        }
+
+        if (!$db_hard) {
+            push(@potential_banners, $banner =~ s/^([^-]*)-(.*)$/SSH-1.5-OpenSSH_$1/r);
+        }
     }
 
     return @potential_banners;
