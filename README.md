@@ -63,6 +63,9 @@ plan is to extract the current versions automatically from the
 repositories of or other sources about the recognized operating system
 releases.
 
+Especially the database schema will likely still change without
+migration path between each incarnation.
+
 License and Copyright
 ----------------------
 
