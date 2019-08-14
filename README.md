@@ -93,3 +93,36 @@ Thanks!
 
 * Jakob Dhondt for the project name suggestion.
 
+Resources
+---------
+
+### OpenSSH Upstream
+
+* [OpenSSH Release Notes](https://www.openssh.com/releasenotes.html)
+
+### Package Versions
+
+* [OpenSSH in the Debian Package
+  Tracker](https://tracker.debian.org/pkg/openssh)
+
+* [Launchpad: OpenSSH package in Ubuntu
+  (Overview)](https://launchpad.net/ubuntu/+source/openssh)
+
+* [CertDepot: RHEL7 Changes between
+  versions](https://www.certdepot.net/rhel7-changes-between-versions/)
+
+* [OpenSSH package of
+  SuSE/openSUSE](https://software.opensuse.org/package/openssh)
+
+* [Open Source Code in use at Apple](https://opensource.apple.com/)
+
+### Specific Details
+
+* [Debian Bug #562048 explains how the DebianBanner patch came
+  along](https://bugs.debian.org/562048)
+
+### Unsorted
+
+* https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/7.4_release_notes/#BZ1341754
+* https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/7.1_release_notes/#idm140132757747728
+* https://jira.atlassian.com/browse/SRCTREE-4346
