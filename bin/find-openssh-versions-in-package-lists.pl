@@ -51,8 +51,10 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
         or die "anyuncompress failed: $AnyUncompressError";
     my $pkgs = DPKG::Parse::FromHandle->new('handle' => $z);
     $pkgs->parse();
+    #p $pkgs;
     my $pkg = $pkgs->get_package(name => 'openssh-server')
         || $pkgs->get_package(name => 'ssh');
+    #p $pkg;
 
     next unless $pkg;
     my $pkglistshort = path($pkglist)->basename;
