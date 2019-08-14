@@ -61,7 +61,7 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     my $os = $pkglistshort =~ s/^([^:]*):.*$/$1/r;
     my $version = $pkg->version;
     say("$version | $pkglistshort") if defined($version) && $version ne '';
-    $db->query('replace into version2os(version,os,regexp,source,lastmod) '.
-               'values (?, ?, ?, ?, ?)',
+    $db->query('replace into version2os(version,os,source,lastmod) '.
+               'values (?, ?, ?, ?)',
                $version, $os, $pkglistshort, path($pkglist)->stat->mtime);
 }
