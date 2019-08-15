@@ -66,11 +66,6 @@ $sql-> migrations
 my $db = $sql->db;
 
 foreach my $base_url (@mirrors) {
-    my $main =
-        $base_url =~ /debian-security/ ? 'updates/main' :
-        $base_url =~ /(hamm|potato|slink)-proposed-updates/ ? '' :
-        'main';
-
     my $res = $ua->get("$base_url/dists/")->result;
     unless ($res->is_success) {
         warn "Can't read $base_url/dists/: ".$res->message;
@@ -99,6 +94,11 @@ foreach my $base_url (@mirrors) {
         my $directres;
         my $filename;
         my $prefix = '';
+
+        my $main =
+            $base_url =~ /debian-security|\bsecurity\.debian\./ ? 'updates/main' :
+            $dist =~ /(hamm|potato|slink)-proposed-updates/ ? '' :
+            'main';
 
         my $main_url = $base_url.'dists/'.$dist.$main.'/';
         my $mainres = $ua->get($main_url)->result;
