@@ -155,10 +155,11 @@ foreach my $base_url (@mirrors) {
             }
 
             my $archlist = path($found);
-            $filename = sprintf('%s:%s%s:%s:%s',
+            $filename = sprintf('%s:%s%s:%s:%s:%s',
                                 $distribution,
                                 $prefix,
                                 $dist,
+                                $main =~ tr(/)(_)r,
                                 $archlist->dirname(),
                                 $archlist->basename());
         }
