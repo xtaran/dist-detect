@@ -79,8 +79,8 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     my @banners = expected_banner_from_version($version, $os);
     p @banners;
     foreach my $banner (@banners) {
-        $db->query('replace into banner2version(version,os,banner) '.
-                   'values (?, ?, ?)',
-                   $version, $os, $banner);
+        $db->query('replace into banner2version(version,os,banner,source) '.
+                   'values (?, ?, ?, ?)',
+                   $version, $os, $banner, $pkglistshort);
     }
 }
