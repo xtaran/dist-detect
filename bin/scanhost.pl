@@ -53,7 +53,7 @@ foreach my $host (@hosts) {
         say sprintf($fmt, $host, '[UNKNOWN]', "[CONNFAIL] $!");
     } elsif ($sock->connected) {
         my $banner = <$sock> || '';
-        say $sock "SSH-2.0-Dist-Detect_$version";
+        say $sock "SSH-2.0-Dist-Detect_$VERSION";
         # TODO: Make complaints address configurable:
         # . ' (send complaints to example@example.com)';
         my $remote_reverse = lookup($host, $sock);
