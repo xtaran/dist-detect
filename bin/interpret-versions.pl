@@ -22,7 +22,9 @@ use strict;
 use warnings;
 use 5.010;
 
-my $latest = '7.9';
+# TODO: Needs to be determined automatically and stored in DB.
+my $latest = '8.0';
+
 my %ssh = (
     # Debian 3.1 Sarge
     qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_3.8.1p1 Debian-8\E($|\.sarge)/s => '[EoL] Debian 3.1 Sarge',
