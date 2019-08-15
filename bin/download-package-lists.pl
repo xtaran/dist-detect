@@ -102,6 +102,7 @@ foreach my $base_url (@mirrors) {
             'main';
 
         my $main_url = $base_url.'dists/'.$dist.$main.'/';
+        #p $main_url; next;
 
         my $mainres = $ua->get($main_url)->result;
         if ($mainres->is_error) {
