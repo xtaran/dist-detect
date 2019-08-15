@@ -92,6 +92,10 @@ Thanks!
 -------
 
 * Jakob Dhondt for the project name suggestion.
+* The [SWITCH Open Source Security Tools Hackathon
+  2019](https://www.eventbrite.de/e/open-source-security-tools-hackathon-2019-tickets-59395447382)
+  for providing the right atmosphere to get the project away from the
+  Proof of Concept state. :-)
 
 Resources
 ---------
