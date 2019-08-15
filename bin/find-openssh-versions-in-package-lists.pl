@@ -79,11 +79,8 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     my @banners = expected_banner_from_version($version, $os);
     p @banners;
     foreach my $banner (@banners) {
-
-        # TODO: Table needs OS info, otherwise only outputs the
-        # version, but no distribution.
-        $db->query('replace into banner2version(version,banner) '.
-                   'values (?, ?)',
-                   $version, $banner);
+        $db->query('replace into banner2version(version,os,banner) '.
+                   'values (?, ?, ?)',
+                   $version, $os, $banner);
     }
 }

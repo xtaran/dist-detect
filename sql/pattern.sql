@@ -16,7 +16,8 @@ CREATE TABLE banner2version (
   source TEXT NOT NULL DEFAULT "manual",
   created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   lastmod DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (banner, version)
+  os TEXT,
+  PRIMARY KEY (banner, os, version)
 );
 
 
