@@ -96,11 +96,13 @@ foreach my $base_url (@mirrors) {
         my $prefix = '';
 
         my $main =
-            $base_url =~ /debian-security|\bsecurity\.debian\./ ? 'updates/main' :
+            ($base_url =~ /debian-security|\bsecurity\.debian\./ and
+             $dist !~ /bullseye|bookworm/) ? 'updates/main' :
             $dist =~ /(hamm|potato|slink)-proposed-updates/ ? '' :
             'main';
 
         my $main_url = $base_url.'dists/'.$dist.$main.'/';
+
         my $mainres = $ua->get($main_url)->result;
         if ($mainres->is_error) {
             # Check for more flat directory structure of ancient Debian releases
