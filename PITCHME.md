@@ -180,7 +180,10 @@ Current State of Project
 
     * Perl 6 might be an option, too.
 
-### Example Regular Expressions
+---
+
+Example Regular Expressions
+---------------------------
 
 (These are manually maintained examples which got stuck at a time
 before the Buster release and while Wheezy still had ELTS support.)
