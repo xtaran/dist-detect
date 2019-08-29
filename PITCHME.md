@@ -286,3 +286,14 @@ Further Ideas
     * Shodan.io? (i.e. publicly available data)
 
 * Ping (fping?) before scan.
+
+---
+
+Contact
+-------
+
+Axel Beckert <axel@ethz.ch>
+
+Repository: https://github.com/xtaran/dist-detect
+
+Slides: https://gitpitch.com/xtaran/dist-detect
