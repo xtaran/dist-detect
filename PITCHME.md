@@ -158,6 +158,8 @@ SSH-1.99-OpenSSH_3.1p1
 Protocol mismatch.
 ```
 
+---
+
 Current State of Project
 ------------------------
 
