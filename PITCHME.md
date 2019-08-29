@@ -274,8 +274,6 @@ Further Ideas
 
 * Also store results and scan dates in a database.
 
-* Maybe use repology.org instead of package lists.
-
 * Also check SMTP, HTTP and maybe other ports.
 
 * Parse package changelogs for existing versions.
