@@ -170,15 +170,8 @@ Current State of Project
   regular expressions which need to be updated regularily and
   manually.
 
-* A rudimentary scraper for Debian and Ubuntu package repositories
+* A scraper for Debian, Ubuntu and Raspbian package repositories
   exist.
-
-* Written in Perl 5.
-
-    * First prototype was written in Shell using `echo '' | nc $host
-      22`. :-)
-
-    * Perl 6 might be an option, too.
 
 ---
 
