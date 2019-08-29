@@ -230,13 +230,24 @@ qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
 ---
 
 TODO
------
+----
 
-* Let the scraper save the found package versions in a database
-  (SQLite).
+* Re-add CentOS/RHEL and macOS knowledge
 
-* Generate regular expressions to match service banners from package
-  versions automatically based on scraped repository data.
+    * Write package list scraper for CentOS/RHEL, Fedora, SuSE, macOS
+
+    * Maybe use https://repology.org/project/openssh/versions and
+      https://repology.org/api as data source.
+
+    * Maybe include a data set for less often changing and harder to
+      get fingerprints (e.g. RHEL)
+
+* Add out-of-the-box support for more Debian derivatives →
+  https://wiki.debian.org/Derivatives/Census
+
+    * Supported ones like Trisquel, Linux Mint, Kali Linux.
+    * Live-CDs like Tails, Grml and Knoppix
+    * Discontinued ones (you also want to detect them) like Tanglu
 
 ---
 
