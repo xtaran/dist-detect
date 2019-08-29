@@ -3,7 +3,7 @@ Dist-Detect
 
 Axel Beckert <axel@ethz.ch>
 
-#HSLIDE
+---
 
 Purpose
 -------
@@ -20,7 +20,7 @@ Quickly get an idea …
 just by looking at the responses of a few common network services
 (typically SSH and web servers), i.e. very fast.
 
-#HSLIDE
+---
 
 Scenario
 --------
@@ -36,7 +36,7 @@ Scenario
 * No False Positives: If the scanner finds something bad, it's bad.
 * False Negatives: Unknown/unclear versions stay unknown/ unclear.
 
-#HSLIDE
+---
 
 Why a Dedicated Tool?
 ---------------------
@@ -56,7 +56,7 @@ BSD and other Unix systems is currently tedious and slow:
   determine the OS. Takes rather long, too, even witth `-T
   aggressive`.
 
-#HSLIDE
+---
 
 General Idea
 ------------
@@ -77,7 +77,7 @@ General Idea
     * RHEL and macOS report OpenSSH version without the "p1" and hence
       this can be used to distinguish it from other distributions.
 
-#HSLIDE
+---
 
 Capabilities
 ------------
@@ -104,7 +104,7 @@ Check version to determine …
 * Bonus: Find SSH servers which still offer the known to be vulnerable
   SSHv1 protocol versions.
 
-#HSLIDE
+---
 
 Real-Life Example SSH Banners
 -----------------------------
@@ -227,7 +227,7 @@ qr/^\QSSH-2.0-OpenSSH_7.6p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.04 LTS Bionic'
 qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
 ```
 
-#HSLIDE
+---
 
 TODO
 -----
@@ -238,7 +238,7 @@ TODO
 * Generate regular expressions to match service banners from package
   versions automatically based on scraped repository data.
 
-#HSLIDE
+---
 
 Wanted, too
 -----------
@@ -256,7 +256,7 @@ Wanted, too
 
     * Probably with dh-dist-zilla.
 
-#HSLIDE
+---
 
 Further Ideas
 -------------
