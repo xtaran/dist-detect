@@ -31,6 +31,9 @@ use File::Touch;
 
 use Data::Printer;
 
+our $VERSION = '0.1';
+our $HOMEPAGE = 'https://github.com/xtaran/dist-detect';
+
 ### CONFIG
 
 my @mirrors = @ARGV || qw(
@@ -58,6 +61,15 @@ my $download_dir = path("$Bin/../package-lists")->make_path;
 my $schema_dir = path("$Bin/../sql")->make_path;
 
 my $ua = Mojo::UserAgent->new();
+
+# old-releases.ubuntu.com occasionally needs over two minutes to only
+# return the dists directory.
+$ua->connect_timeout(30);
+
+# old-releases.ubuntu.com seems to add artificial lag based on the
+# sent user agent string, so set our own
+$ua->transactor->name('dist-detect/$VERSION ($HOMEPAGE)');
+
 my $sql = Mojo::SQLite->new("sqlite:$download_dir/packagelists.db");
 $sql-> migrations
     -> name('packagelists')
