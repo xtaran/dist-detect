@@ -41,11 +41,11 @@ my @mirrors = @ARGV || qw(
   https://ubuntu.ethz.ch/ubuntu/
   http://old-releases.ubuntu.com/ubuntu/
   https://raspbian.ethz.ch/raspbian/
+  http://archive.raspberrypi.org/debian/
 );
-# TODO:
-#  https://archive.raspberrypi.org/debian/
-# results in:
-# SSL connect attempt failed error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small
+# TODO: https://archive.raspberrypi.org/debian/ offers HTTPS, but
+# results in: SSL connect attempt failed error:141A318A:SSL
+# routines:tls_process_ske_dhe:dh key too small
 
 # Skip suite aliases (which are usually symlinks) and kfreebsd (we
 # currently don't about any kfreebsd-specific packages and hence we
