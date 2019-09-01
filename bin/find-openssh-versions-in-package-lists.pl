@@ -108,7 +108,8 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     # 1:7.2p2-4ubuntu2.8
     # 1:7.4p1-10+deb9u6
     # TODO: 1:6.6p1-4~bpo70+1
-    if ($version =~ /^
+    if ($pkglist !~ /proposed/ and
+        $version =~ /^
         (
           # Optional epoch
           (?: \d+ : )?
