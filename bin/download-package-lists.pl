@@ -84,11 +84,6 @@ foreach my $base_url (@mirrors) {
         next;
     }
 
-    my $distribution = ucfirst($base_url =~ s{^.*/([^/-]+)(-[^/]*)?/?$}{$1}r);
-    #p $base_url;
-    #p $distribution;
-    die "Couldn't determine distribution from $base_url" unless $distribution;
-
     my $dists = $res
         -> dom
         -> find('a[href]')
@@ -98,20 +93,83 @@ foreach my $base_url (@mirrors) {
 
     #p $dists;
 
-    foreach my $dist (@$dists) {
+    foreach my $dist (@$dists) { # directory name under "dists"
         next if $dist =~ $skip_releases;
         my $plres;
         my $url;
         my $found;
         my $directres;
         my $filename;
+        my $release; # Content of release file
+        my $distribution; # Name of Distribution, e.g. Debian or Ubuntu
+        my $version; # Release version number, e.g. "9"
+        my $codename; # Release codename
+        my $suite; # Release suite
         my $prefix = '';
 
+        # Some heuristics
+        if ($base_url =~ /debian-security|\bsecurity\.debian\./ and
+            $dist !~ /bullseye|bookworm/) {
+            $dist .= 'updates/';
+        }
+
+        my $release_url =
+            $dist =~ /slink\/updates\b/ ?
+            $base_url."dists/${dist}binary-i386/Release" :
+            ($dist =~ /^(bo|slink|hamm)\b/ and
+             $dist !~ /-proposed-updates\b/) ?
+            $base_url."dists/${dist}main/binary-i386/Release" :
+            $base_url."dists/${dist}InRelease";
+
+        # Buzz (1.1) had no Release file at all
+        unless ($dist =~ /^(buzz|rex)\b/ or
+                ($base_url =~ /debian-security|\bsecurity\.debian\./
+                     and $dist =~ /^potato\b/)) {
+            my $release_res = $ua->get($release_url)->result;
+            if ($release_res->is_error) {
+                my $first_error = $release_res->message;
+                my $first_url = $release_url;
+                # Only try a second guess if we checked for InRelease
+                # in first round.
+                if ($release_url =~ /InRelease/) {
+                    $release_url =~ s/InRelease/Release/;
+                    $release_res = $ua->get($release_url)->result;
+                    if ($release_res->is_error) {
+                        warn "Could neither download $first_url ($first_error) ".
+                            "nor $release_url (".$release_res->message.")";
+                    }
+                } else {
+                    warn "Could not download $first_url ($first_error)";
+                }
+            }
+
+            if ($release_res->is_success) {
+                $release = $release_res->body;
+
+                $release =~ /^Label: (.*)$/m or $release =~ /^Origin: (.*)$/m;
+                $distribution = $1;
+
+                $release =~ /^Version: (.*)$/m;
+                $version = $1;
+
+                $release =~ /^Suite: (.*)$/m;
+                $suite = $1;
+            }
+        } else {
+            # Buzz, Rex or Potato Security
+            $distribution = 'Debian';
+        }
+
+        unless ($distribution) {
+            warn "Couldn't determine distribution from release file in $release_url, falling back to parsing URL";
+            $distribution = ucfirst($base_url =~ s{^.*/([^/-]+)(-[^/]*)?/?$}{$1}r);
+
+            my @debug = ( $base_url, $dist, $distribution, $version, $codename, $suite );
+            p @debug;
+        }
+
         my $main =
-            ($base_url =~ /debian-security|\bsecurity\.debian\./ and
-             $dist !~ /bullseye|bookworm/) ? 'updates/main' :
-            $dist =~ /(hamm|potato|slink)-proposed-updates/ ? '' :
-            'main';
+            $dist =~ /(hamm|potato|slink)-proposed-updates/ ? '' : 'main';
 
         my $main_url = $base_url.'dists/'.$dist.$main.'/';
         #p $main_url; next;
