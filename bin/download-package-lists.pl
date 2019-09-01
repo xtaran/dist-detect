@@ -54,8 +54,8 @@ my $skip_releases = qr/kfreebsd|devel|stable|testing|rc-buggy/;
 
 ### CODE
 
-my $download_dir = "$Bin/../package-lists";
-my $schema_dir = "$Bin/../sql";
+my $download_dir = path("$Bin/../package-lists")->make_path;
+my $schema_dir = path("$Bin/../sql")->make_path;
 
 my $ua = Mojo::UserAgent->new();
 my $sql = Mojo::SQLite->new("sqlite:$download_dir/packagelists.db");
