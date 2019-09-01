@@ -87,7 +87,9 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
         ($pkglst_meta->{url} =~ /old-releases|debian-archive/) ?
         'EOL' : '';
 
-    say("$version | $pkglistshort") if defined($version) && $version ne '';
+    # The current version
+    say("$version | ".($tags?"[$tags] ":'')."$pkglistshort")
+        if defined($version) && $version ne '';
     $db->query('replace into version2os(version,os,source,lastmod,tags) '.
                'values (?, ?, ?, ?, ?)',
                $version, $os, $pkglistshort, path($pkglist)->stat->mtime,
@@ -99,5 +101,96 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
         $db->query('replace into banner2version(version,os,banner,source) '.
                    'values (?, ?, ?, ?)',
                    $version, $os, $banner, $pkglistshort);
+    }
+
+    # Calculate predecessor versions of security updates
+    # Examples for $version:
+    # 1:7.2p2-4ubuntu2.8
+    # 1:7.4p1-10+deb9u6
+    # TODO: 1:6.6p1-4~bpo70+1
+    if ($version =~ /^
+        (
+          # Optional epoch
+          (?: \d+ : )?
+          # Upstream version
+          [\d.p]+
+          # Delimited between upstream version and package release
+          -
+          # Package release (dot possible for NMUs)
+          [\d.]+
+          # End of Debian base package version
+        )
+        # Updates
+        (
+          # Update prefix for Debian and Ubuntu
+          # (Raspbian uses Debian's infixes.)
+          (
+            ubuntu       |
+            build        |
+            \+ deb \d+ u |
+            \. woody \.  |
+            \. sarge \.  |
+            etch         |
+            \+ squeeze   |
+          )
+          # This is where stable updates get counted
+          ( [\d.]+ )
+        )$/x) {
+
+        my $local_tags = $tags ? $tags.' NO-UPD' : 'NO-UPD';
+
+        my $v_unchanged   = $1;
+        my $v_infix       = $3;
+        my $v_upd_counter = $4;
+
+        my @upd_counter_values = ();
+
+        # Check if there's a dot in the update counter
+        if ($v_upd_counter =~ /\./) {
+            my $first  = $`;
+            my $second = $';
+            if ($second > 1) {
+                foreach my $suffix (1..($second-1)) {
+                    push(@upd_counter_values,
+                         $v_unchanged.$v_infix.$first.'.'.$suffix);
+                }
+            }
+
+            foreach my $suffix (1..$first) {
+                push(@upd_counter_values,
+                     $v_unchanged.$v_infix.$suffix);
+            }
+        } else { # no dot
+            # Ubuntu starts counting with zero
+            if ($v_upd_counter > 0) {
+                foreach my $suffix (0..($v_upd_counter-1)) {
+                    push(@upd_counter_values,
+                         $v_unchanged.$v_infix.$suffix);
+                }
+            }
+        }
+
+        # Also list the initial version for that release
+        push(@upd_counter_values, $v_unchanged);
+
+        p @upd_counter_values;
+
+        foreach my $no_sec_upd_version (@upd_counter_values) {
+            say("$no_sec_upd_version | ".($local_tags?"[$local_tags] ":'').
+                " $pkglistshort")
+                if defined($no_sec_upd_version) && $no_sec_upd_version ne '';
+            $db->query('replace into version2os(version,os,source,lastmod,tags) '.
+                       'values (?, ?, ?, ?, ?)',
+                       $no_sec_upd_version, $os, $pkglistshort,
+                       path($pkglist)->stat->mtime, $local_tags);
+
+            my @banners = expected_banner_from_version($no_sec_upd_version, $os);
+            p @banners;
+            foreach my $banner (@banners) {
+                $db->query('replace into banner2version(version,os,banner,source) '.
+                           'values (?, ?, ?, ?)',
+                           $no_sec_upd_version, $os, $banner, $pkglistshort);
+            }
+        }
     }
 }
