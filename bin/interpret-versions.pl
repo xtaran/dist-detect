@@ -45,18 +45,20 @@ while (my $next = $banners->hash) {
         $ssh{$next->{banner}} = [];
     }
 
-    push(@{$ssh{$next->{banner}}}, $next->{source} =~ s/([^:]*:[^:]*):.*$/$1/r);
+    push(@{$ssh{$next->{banner}}},
+         ($next->{tags} ? '['.$next->{tags}.'] ' : '').
+         $next->{source} =~ s/([^:]*:[^:]*):.*$/$1/r);
 }
 
 # Generic patterns
 my %ssh_generic = (
-    qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_\E([123]\.|4\.[0-2]\b)/s => '[EoL] Older than RHEL 5',
+    qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_\E([123]\.|4\.[0-2]\b)/s => '[EOL] Older than RHEL 5',
     qr/^SSH-1\.[^9]/s => '[Scary] SSH-1.x-only server',
     qr/^\QSSH-1.99-/s => '[Insecure] SSH prot. 2 server with SSH prot. 1 still enabled',
     qr/^\QSSH-2.0-OpenSSH_$latest\E(p\d+)?/s => '[BLEEDING EDGE]',
 );
 
-my $fmt = "%s|%s|%s|%s";
+my $fmt = "%s | %s | %s | %s";
 
 # autoflush
 $| = 1;

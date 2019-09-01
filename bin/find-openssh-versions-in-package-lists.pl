@@ -46,6 +46,12 @@ $sql-> migrations
     -> migrate;
 my $db = $sql->db;
 
+my $pkglst_sql = Mojo::SQLite->new("sqlite:$pkglistdir/packagelists.db");
+$sql-> migrations
+    -> name('packagelists')
+    -> from_file("$schema_dir/packagelists.sql")
+    -> migrate;
+my $pkglst_db = $pkglst_sql->db;
 
 foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     #p $pkglist;
@@ -54,6 +60,11 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
 
     # Skip empty package lists
     next if $z->eof;
+
+    my $pkglst_file = path($pkglist)->basename;
+    my $pkglst_meta =
+        $pkglst_db->query("select * from packagelists where filename='$pkglst_file'")
+        ->hash;
 
     my $pkgs = DPKG::Parse::FromHandle->new('handle' => $z);
     $pkgs->parse();
@@ -71,10 +82,16 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
     my $release = $repo =~ s/-.*$//r;
 
     my $version = $pkg->version;
+
+    my $tags =
+        ($pkglst_meta->{url} =~ /old-releases|debian-archive/) ?
+        'EOL' : '';
+
     say("$version | $pkglistshort") if defined($version) && $version ne '';
-    $db->query('replace into version2os(version,os,source,lastmod) '.
-               'values (?, ?, ?, ?)',
-               $version, $os, $pkglistshort, path($pkglist)->stat->mtime);
+    $db->query('replace into version2os(version,os,source,lastmod,tags) '.
+               'values (?, ?, ?, ?, ?)',
+               $version, $os, $pkglistshort, path($pkglist)->stat->mtime,
+               $tags);
 
     my @banners = expected_banner_from_version($version, $os);
     p @banners;
