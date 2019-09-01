@@ -166,9 +166,10 @@ Current State of Project
 * Scanner (native) works and is reasonably fast (about 10-15 seconds
   per /24 if all hosts are online)
 
-* Version string interpreter works, but consists of handwritten
-  regular expressions which need to be updated regularily and
-  manually.
+* Version string interpreter works, but currently only knows about
+  Debian and derivatives. (And older, manually written and horribly
+  outdated version which also knows about RHEL, CentOS and macOS can
+  be found in the Git history.)
 
 * A scraper for Debian, Ubuntu and Raspbian package repositories
   exist.
@@ -240,12 +241,22 @@ TODO
     * Maybe include a data set for less often changing and harder to
       get fingerprints (e.g. RHEL)
 
+* Distinguish between repos where SSH signatures changes often
+  (Debian, Ubuntu) and those where it changes seldom (RHEL, CentOS,
+  macOS, Debian/Ubuntu historical archives).
+
+* Make output more readable.
+
 * Add out-of-the-box support for more Debian derivatives →
   https://wiki.debian.org/Derivatives/Census
 
     * Supported ones like Trisquel, Linux Mint, Kali Linux.
     * Live-CDs like Tails, Grml and Knoppix
     * Discontinued ones (you also want to detect them) like Tanglu
+
+* Debian Jessie is currently available on the normal mirrors (x86 +
+  ARM only) as well as in the historical archive (all
+  architectures). Handle that case better.
 
 ---
 
