@@ -35,9 +35,9 @@ use App::DistDetect::SSH::Banner;
 # DEBUG HELPER
 use Data::Printer;
 
-my $pkglistdir = "$Bin/../package-lists";
-my $schema_dir = "$Bin/../sql";
-my $db_dir = "$Bin/../db";
+my $pkglistdir = path("$Bin/../package-lists")->make_path;
+my $schema_dir = path("$Bin/../sql")->make_path;
+my $db_dir = path("$Bin/../db")->make_path;
 
 my $sql = Mojo::SQLite->new("sqlite:$db_dir/pattern.db");
 $sql-> migrations
