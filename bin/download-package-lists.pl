@@ -42,9 +42,9 @@ my @mirrors = @ARGV || qw(
   https://debian.ethz.ch/debian-archive/debian/
   https://debian.ethz.ch/debian-archive/debian-security/
   https://ubuntu.ethz.ch/ubuntu/
-  http://old-releases.ubuntu.com/ubuntu/
   https://raspbian.ethz.ch/raspbian/
   http://archive.raspberrypi.org/debian/
+  http://old-releases.ubuntu.com/ubuntu/
 );
 # TODO: https://archive.raspberrypi.org/debian/ offers HTTPS, but
 # results in: SSL connect attempt failed error:141A318A:SSL
