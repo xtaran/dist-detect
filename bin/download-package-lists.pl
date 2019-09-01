@@ -28,6 +28,7 @@ use Mojo::Date;
 use Mojo::SQLite;
 use FindBin qw($Bin);
 use File::Touch;
+use Try::Tiny;
 
 use Data::Printer;
 
@@ -64,7 +65,7 @@ my $ua = Mojo::UserAgent->new();
 
 # old-releases.ubuntu.com occasionally needs over two minutes to only
 # return the dists directory.
-$ua->connect_timeout(30);
+$ua->connect_timeout(180);
 
 # old-releases.ubuntu.com seems to add artificial lag based on the
 # sent user agent string, so set our own
