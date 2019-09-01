@@ -126,8 +126,13 @@ foreach my $base_url (@mirrors) {
         unless ($dist =~ /^(buzz|rex)\b/ or
                 ($base_url =~ /debian-security|\bsecurity\.debian\./
                      and $dist =~ /^potato\b/)) {
-            my $release_res = $ua->get($release_url)->result;
-            if ($release_res->is_error) {
+            my $release_res;
+            try {
+                $release_res = $ua->get($release_url)->result;
+            } catch {
+                warn "Couldn't fetch $release_url: $@";
+            };
+            if ($release_res && $release_res->is_error) {
                 my $first_error = $release_res->message;
                 my $first_url = $release_url;
                 # Only try a second guess if we checked for InRelease
@@ -144,7 +149,7 @@ foreach my $base_url (@mirrors) {
                 }
             }
 
-            if ($release_res->is_success) {
+            if ($release_res && $release_res->is_success) {
                 $release = $release_res->body;
 
                 $release =~ /^Label: (.*)$/m or $release =~ /^Origin: (.*)$/m;
@@ -175,12 +180,22 @@ foreach my $base_url (@mirrors) {
         my $main_url = $base_url.'dists/'.$dist.$main.'/';
         #p $main_url; next;
 
-        my $mainres = $ua->get($main_url)->result;
-        if ($mainres->is_error) {
+        my $mainres;
+        try {
+            $mainres = $ua->get($main_url)->result;
+        } catch {
+            warn "Couldn't fetch $main_url: $@";
+        };
+        if ($mainres && $mainres->is_error) {
             # Check for more flat directory structure of ancient Debian releases
             my $test_url = $base_url.'dists/'.$dist.'Packages.gz';
-            my $directres = $ua->get($test_url)->result;
-            if ($directres->is_error) {
+            my $directres;
+            try {
+                $directres = $ua->get($test_url)->result;
+            } catch {
+                warn "Couldn't fetch $test_url: $@";
+            };
+            if ($directres && $directres->is_error) {
                 warn "Skipping $main_url, not accessible: ".$mainres->message;
                 next;
             } else {
@@ -189,7 +204,12 @@ foreach my $base_url (@mirrors) {
         }
 
         if ($url) {
-            $plres = $ua->get($url)->result;
+            try {
+                $plres = $ua->get($url)->result;
+            } catch {
+                warn "Couldn't fetch $url: $@";
+            };
+
             $filename = $dist.'::Packages.gz';
         } else {
             my @pkglists = qw(
@@ -211,8 +231,12 @@ foreach my $base_url (@mirrors) {
                 $found = $variant;
                 $url = $main_url.'binary-'.$variant;
                 #p $url;
-                $plres = $ua->get($url)->result;
-                last if $plres->is_success();
+                try {
+                    $plres = $ua->get($url)->result;
+                } catch {
+                    warn "Couldn't fetch $url: $@";
+                };
+                last if $plres && $plres->is_success();
             }
 
             if ($plres->is_error) {
