@@ -25,6 +25,7 @@ use 5.010;
 use FindBin qw($Bin);
 
 use Mojo::SQLite;
+use List::Util qw(uniq);
 
 # TODO: Needs to be determined automatically and stored in DB.
 my $latest = '8.0';
@@ -71,7 +72,7 @@ while (<>) {
     my $match;
     foreach my $key (keys %ssh) {
         if ($sshbanner eq $key) {
-            $match = join(',', @{$ssh{$key}});
+            $match = join(',', uniq(@{$ssh{$key}}));
         }
     }
 
