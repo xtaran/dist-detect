@@ -10,6 +10,7 @@ Purpose
 
 Quickly get an idea …
 
+@ul[span-100]
 * of the Linux/BSD/Unix distribution and distribution release of a
   remote system
 
@@ -19,22 +20,27 @@ Quickly get an idea …
 
 just by looking at the responses of a few common network services
 (typically SSH and web servers), i.e. very fast.
+@ulend
 
 ---
 
 Scenario
 --------
 
+@ul[span-100]
 * Heterogenous networks (e.g. with BYOD or many self-managed machines)
   as common in academia, data-centers with a lot of internet-facing,
   rented servers/racks, etc.
 
 * Find old, not yet streamlined / automated / documented deployments.
+@ulend
 
 ### Focus on Low Hanging Fruits
 
+@ul[span-100]
 * No False Positives: If the scanner finds something bad, it's bad.
 * False Negatives: Unknown/unclear versions stay unknown/ unclear.
+@ulend
 
 ---
 
@@ -44,6 +50,7 @@ Why a Dedicated Tool?
 Scanning your own network for badly maintained / not updated Linux,
 BSD and other Unix systems is currently tedious and slow:
 
+@ul[span-100]
 * Most vulnerability scanners still test tons of (from this point of
   view unnecessary) stuff and take rather long per host.
 
@@ -55,12 +62,14 @@ BSD and other Unix systems is currently tedious and slow:
 * Nmap and friends don't look at server application versions to
   determine the OS. Takes rather long, too, even witth `-T
   aggressive`.
+@ulend
 
 ---
 
 General Idea
 ------------
 
+@ul[span-100]
 * Many services display also the exact package version on some
   distributions (especially OpenSSH on Debian, Ubuntu and
   derivatives), so let's scan specifically for these.
@@ -76,6 +85,7 @@ General Idea
 
     * RHEL and macOS report OpenSSH version without the "p1" and hence
       this can be used to distinguish it from other distributions.
+@ulend
 
 ---
 
@@ -84,6 +94,7 @@ Capabilities
 
 Check version to determine …
 
+@ul[span-100]
 * which OS/distribution is running. (possibly ambiguous)
 
     * if the OS/distribution is EoL
@@ -103,6 +114,7 @@ Check version to determine …
 
 * Bonus: Find SSH servers which still offer the known to be vulnerable
   SSHv1 protocol versions.
+@ulend
 
 ---
 
@@ -163,6 +175,7 @@ Protocol mismatch.
 Current State of Project
 ------------------------
 
+@ul[span-100]
 * Scanner (native) works and is reasonably fast (about 10-15 seconds
   per /24 if all hosts are online)
 
@@ -173,6 +186,7 @@ Current State of Project
 
 * A scraper for Debian, Ubuntu and Raspbian package repositories
   exist.
+@ulend
 
 ---
 
@@ -231,6 +245,7 @@ qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
 TODO
 ----
 
+@ul[span-100]
 * Re-add CentOS/RHEL and macOS knowledge
 
     * Write package list scraper for CentOS/RHEL, Fedora, SuSE, macOS
@@ -257,12 +272,14 @@ TODO
 * Debian Jessie is currently available on the normal mirrors (x86 +
   ARM only) as well as in the historical archive (all
   architectures). Handle that case better.
+@ulend
 
 ---
 
 Wanted, too
 -----------
 
+@ul[span-100]
 * Unit testing
 
     * Travis CI
@@ -275,12 +292,14 @@ Wanted, too
 * Package for Debian.
 
     * Probably with dh-dist-zilla.
+@ulend
 
 ---
 
 Further Ideas
 -------------
 
+@ul[span-100]
 * Also store results and scan dates in a database.
 
 * Also check SMTP, HTTP and maybe other ports.
@@ -293,6 +312,7 @@ Further Ideas
     * Shodan.io? (i.e. publicly available data)
 
 * Ping (fping?) before scan.
+@ulend
 
 ---
 
