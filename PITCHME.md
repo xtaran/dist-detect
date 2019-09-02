@@ -41,41 +41,39 @@ Scenario
 Why a Dedicated Tool?
 ---------------------
 
-Scanning your own network for badly maintained / not updated Linux,
-BSD and other Unix systems is currently tedious and slow:
+Scanning your network for badly maintained / outdated Linux, BSD and
+other Unix systems is tedious and slow:
 
-* Most vulnerability scanners still test tons of (from this point of
-  view unnecessary) stuff and take rather long per host.
+* Most vulnerability scanners still test tons of (from this
+  p.o.v. unnecessary) stuff and take rather long.
 
 * Many vulnerability scanners just look at the reported upstream
   version and trigger a lot of false positives when a distribution
   just fixes security issues instead of packaging new upstream
   versions (which is rather common with so called "stable releases").
 
-* Nmap and friends don't look at server application versions to
-  determine the OS. Takes rather long, too, even witth `-T
-  aggressive`.
+* Nmap doesn't look at server application versions to determine the
+  OS. Takes long, too, even witth `-T aggressive`.
 
 ---
 
 General Idea
 ------------
 
-* Many services display also the exact package version on some
+* Many services display the exact package version on some
   distributions (especially OpenSSH on Debian, Ubuntu and
-  derivatives), so let's scan specifically for these.
+  derivatives), so let's use that data.
 
 * Specific versions of OpenSSH, Apache, Nginx, Dropbear, etc. are only
-  shipped with very few "stable releases", so you can easily limit the
-  list of possible/likely OS/distributions to a few if not even
-  one.
+  shipped with very few "stable releases", so you can limit the list
+  of possible/likely OS/distributions to a few if not one.
 
-    * E.g. RedHat as well as macOS only report the upstream OpenSSH
+    * RedHat as well as macOS only report the upstream OpenSSH
       version, but there are still very few OpenSSH versions which are
       shipped in both RHEL and macOS.
 
-    * RHEL and macOS report OpenSSH version without the "p1" and hence
-      this can be used to distinguish it from other distributions.
+    * RHEL and macOS report OpenSSH version without the "p1".  This
+      can be used to distinguish them from others.
 
 ---
 
@@ -84,16 +82,14 @@ Capabilities
 
 Check version to determine …
 
-* which OS/distribution is running. (possibly ambiguous)
-
-    * if the OS/distribution is EoL
+* which OS/distribution is running. (possibly ambiguous) → if the
+  OS/distribution is EoL
 
 * which package version is running. (maybe impossible)
 
-    * if the running package is the most recent security update.
+    * if the most recent security update is running.
 
-    * if not, for how long at least the admin hasn't applied security
-      updates.
+    * if not, for how long at least security updates are missing.
 
     * if the server uses SSH backports
 
@@ -233,21 +229,19 @@ TODO
 
 * Re-add CentOS/RHEL and macOS knowledge
 
-    * Write package list scraper for CentOS/RHEL, Fedora, SuSE, macOS
+    * Add package list scrapers for CentOS/RHEL, macOS, …
 
-    * Maybe use https://repology.org/project/openssh/versions and
-      https://repology.org/api as data source.
+    * Maybe use https://repology.org/api +
+      https://repology.org/project/openssh/versions
 
-    * Maybe include a data set for less often changing and harder to
-      get fingerprints (e.g. RHEL)
+    * Maybe distribute a data set for less often changing data.
 
 * Distinguish between repos where SSH signatures changes often
-  (Debian, Ubuntu) and those where it changes seldom (RHEL, CentOS,
-  macOS, Debian/Ubuntu historical archives).
+  and where they change seldomly.
 
 * Make output more readable.
 
-* Add out-of-the-box support for more Debian derivatives →
+* Add support for more Debian derivatives →
   https://wiki.debian.org/Derivatives/Census
 
     * Supported ones like Trisquel, Linux Mint, Kali Linux.
