@@ -122,6 +122,10 @@ Plans / Ideas
   https://repology.org/project/openssh/versions instead of or in
   addition to scraping package lists.
 
+    * First check which of the package names in use are suitable: `GET
+      https://repology.org/api/v1/project/openssh | jq '.[] | .name' |
+      sort -u`
+
 * Add support for more [Debian
   derivatives](https://wiki.debian.org/Derivatives/Census):
 
