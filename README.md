@@ -97,13 +97,6 @@ TODO
   might be wrong depending on the (not easily detectable)
   architecture. Handle this better.
 
-* Add support for more [Debian
-  derivatives](https://wiki.debian.org/Derivatives/Census):
-
-    * Supported derivatives ones like Trisquel, Linux Mint, and Kali Linux.
-    * Live-CDs like Tails, Grml and Knoppix
-    * Discontinued ones (you also want to detect them) like Tanglu
-
 
 Plans / Ideas
 -------------
@@ -128,6 +121,13 @@ Plans / Ideas
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions instead of or in
   addition to scraping package lists.
+
+* Add support for more [Debian
+  derivatives](https://wiki.debian.org/Derivatives/Census):
+
+    * Supported derivatives ones like Trisquel, Linux Mint, and Kali Linux.
+    * Live-CDs like Tails, Grml and Knoppix
+    * Discontinued ones (you also want to detect them) like Tanglu
 
 
 License and Copyright
