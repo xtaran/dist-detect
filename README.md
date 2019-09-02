@@ -100,6 +100,12 @@ Thanks!
 Resources
 ---------
 
+### Short Slide Deck about Dist-Detect
+
+[Slideshow via GitPitch](https://gitpitch.com/xtaran/dist-detect)
+([Source file rendered as normal Markdown
+file](https://github.com/xtaran/dist-detect/blob/master/PITCHME.md))
+
 ### OpenSSH Upstream
 
 * [OpenSSH Release Notes](https://www.openssh.com/releasenotes.html)
