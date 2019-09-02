@@ -97,8 +97,8 @@ Check version to determine …
 
     * if the server uses LTS repositories
 
-* Bonus: Find SSH servers which still offer the known to be vulnerable
-  SSHv1 protocol versions.
+* Bonus: Find SSH servers which still offer the vulnerable SSHv1
+  protocol.
 
 ---
 
@@ -229,12 +229,12 @@ TODO
 
 * Re-add CentOS/RHEL and macOS knowledge
 
-    * Add package list scrapers for CentOS/RHEL, macOS, …
+    * Add package list scrapers.
 
     * Maybe use https://repology.org/api +
       https://repology.org/project/openssh/versions
 
-    * Maybe distribute a data set for less often changing data.
+    * Maybe ship static data for seldomly changing data.
 
 * Distinguish between repos where SSH signatures changes often
   and where they change seldomly.
