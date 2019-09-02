@@ -241,16 +241,15 @@ TODO
 
 * Make output more readable.
 
+* Debian Jessie is currently available on the normal mirrors and in
+  the historical archive. Handle this better.
+
 * Add support for more Debian derivatives →
   https://wiki.debian.org/Derivatives/Census
 
     * Supported ones like Trisquel, Linux Mint, Kali Linux.
     * Live-CDs like Tails, Grml and Knoppix
     * Discontinued ones (you also want to detect them) like Tanglu
-
-* Debian Jessie is currently available on the normal mirrors (x86 +
-  ARM only) as well as in the historical archive (all
-  architectures). Handle that case better.
 
 ---
 
