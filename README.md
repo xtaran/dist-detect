@@ -5,8 +5,9 @@ Dist-Detect is an active commandline scanner to detect the Linux or
 Unix distribution running on a remote host by looking at the banners
 or responses of typical Unix netowrk services.
 
-For now only the SSH service is supported and works already quite
-well, but HTTP/HTTPS and SMTP might work as well.
+Dist-Detect is currently work in progress. For now only the SSH
+service is supported and works already quite well, but HTTP/HTTPS and
+SMTP might work as well.
 
 Purpose
 -------
