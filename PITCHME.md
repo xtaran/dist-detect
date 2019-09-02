@@ -97,8 +97,7 @@ Check version to determine …
 
     * if the server uses LTS repositories
 
-* Bonus: Find SSH servers which still offer the vulnerable SSHv1
-  protocol.
+* Bonus: Find SSH servers which still offer SSHv1.
 
 ---
 
