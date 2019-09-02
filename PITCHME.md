@@ -240,7 +240,7 @@ TODO
 
 * Make output more readable.
 
-* Debian Jessie is currently available on the normal mirrors and in
+* Debian Jessie is atm. available on the normal mirrors and in
   the historical archive. Handle this better.
 
 * Add support for more Debian derivatives →
