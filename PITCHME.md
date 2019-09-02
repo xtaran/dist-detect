@@ -281,10 +281,13 @@ Further Ideas
 
 * Add optional scanning backends.
 
-    * scanssh, pnscan, masscan, pf_ring?
-    * Shodan.io? (i.e. publicly available data)
+    * [scanssh](http://www.monkey.org/~provos/scanssh/),
+      [pnscan](https://github.com/ptrrkssn/pnscan),
+      [masscan](https://github.com/robertdavidgraham/masscan),
+      [pf_ring](https://www.ntop.org/products/packet-capture/pf_ring/)?
+    * [Shodan.io](https://www.shodan.io/)? (i.e. publicly available data)
 
-* Ping (fping?) before scan.
+* Ping ([fping](https://www.fping.org/)?) before scan.
 
 ---
 

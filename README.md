@@ -59,17 +59,79 @@ machines. I call this _Low Hanging Fruits Scanning_.
 Work in Progress
 ----------------
 
-As of now, this work in progress. The prototype currently uses
-hardcoded regular expression (which are outdated already), but the
-plan is to extract the current versions automatically from the
-repositories of or other sources about the recognized operating system
-releases.
+As of now, this work in progress.
+
+The inital prototype used hardcoded (and handcoded :-) regular
+expression (which were outdated quite quicly).
+
+Currently the package repositories of Debian, Ubuntu and Raspbian are
+checked for the current OpenSSH versions and then the result is stored
+in an SQLite database. This database is then queried when translating
+OpenSSH banners into package versions and uptodateness information.
 
 Especially the database schema will likely still change without
-migration path between each incarnation.
+migration path between each incarnation at the current stage of
+development. (But since the database can be easily regenerated, this
+should be no real issue.)
+
+
+TODO
+----
+
+* Re-add CentOS/RHEL and macOS knowledge
+
+    * Maybe add package list scrapers.
+
+    * Maybe ship static data for these rather seldomly changing
+      signatures.
+
+* Distinguish between repos where SSH signatures changes often (active
+  security mirrors of Debian and derivatives) and where they change
+  seldomly (old-releases.ubuntu.com / archive.debian.org).
+
+* Make output more human readable. Maybe use a commandline switch to
+  produce either machine or human readable output.
+
+* Debian Jessie is at the moment available on the normal mirrors and
+  in the historical archive and hence gets flagged EOL even if that
+  might be wrong depending on the (not easily detectable)
+  architecture. Handle this better.
+
+* Add support for more [Debian
+  derivatives](https://wiki.debian.org/Derivatives/Census):
+
+    * Supported derivatives ones like Trisquel, Linux Mint, and Kali Linux.
+    * Live-CDs like Tails, Grml and Knoppix
+    * Discontinued ones (you also want to detect them) like Tanglu
+
+
+Plans / Ideas
+-------------
+
+* Also store results and scan dates in a database.
+
+* Also check SMTP, HTTP and maybe other ports. (One suggestion was
+  e.g. SIP ports)
+
+* Parse package changelogs for existing versions.
+
+* Add optional scanning backends.
+
+    * [scanssh](http://www.monkey.org/~provos/scanssh/),
+      [pnscan](https://github.com/ptrrkssn/pnscan),
+      [masscan](https://github.com/robertdavidgraham/masscan),
+      [pf_ring](https://www.ntop.org/products/packet-capture/pf_ring/)?
+    * [Shodan.io](https://www.shodan.io/)? (i.e. publicly available data)
+
+* Ping ([fping](https://www.fping.org/)?) before scan.
+
+* Maybe use https://repology.org/api and
+  https://repology.org/project/openssh/versions instead of or in
+  addition to scraping package lists.
+
 
 License and Copyright
-----------------------
+---------------------
 
 Copyright 2019, Axel Beckert <axel@ethz.ch> and [ETH
 Zurich](https://www.ethz.ch/).
@@ -90,6 +152,7 @@ You should have received [a copy of the GNU General Public
 License](LICENSE.md) along with Dist-Detect.  If not, see
 <https://www.gnu.org/licenses/>.
 
+
 Thanks!
 -------
 
@@ -98,6 +161,7 @@ Thanks!
   2019](https://www.eventbrite.de/e/open-source-security-tools-hackathon-2019-tickets-59395447382)
   for providing the right atmosphere to get the project away from the
   Proof of Concept state. :-)
+
 
 Resources
 ---------
@@ -132,6 +196,12 @@ file](https://github.com/xtaran/dist-detect/blob/master/PITCHME.md))
 
 * [Debian Bug #562048 explains how the DebianBanner patch came
   along](https://bugs.debian.org/562048)
+
+### Similar Tools
+
+* [ssh-version](https://github.com/vaporup/ssh-tools/blob/master/ssh-version)
+  (probably too slow to be used as backend, more thought as small and
+  simple commandline tool)
 
 ### Unsorted
 
