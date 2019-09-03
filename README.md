@@ -120,11 +120,17 @@ Plans / Ideas
 
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions instead of or in
-  addition to scraping package lists.
-
-    * First check which of the package names in use are suitable: `GET
-      https://repology.org/api/v1/project/openssh | jq '.[] | .name' |
-      sort -u`
+  addition to scraping package lists. Probably filter returned list to
+  only use these package names:
+    * `openssh`
+    * `openssh-server`
+    * `openssh-portable`
+  The following list is questionable as they're patched versions which
+  may lag behind the unpatched version:
+    * `openssh-krb5` (SlackBuilds)
+    * `openssh-gssapi` (AUR)
+    * `openssh-multiple-bindaddress` (AUR)
+    * `openssh-with-hpn` (nixpkgs)
 
 * Add support for more [Debian
   derivatives](https://wiki.debian.org/Derivatives/Census):
