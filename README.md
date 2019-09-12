@@ -113,12 +113,17 @@ Plans / Ideas
 
     * SSH:
         * [scanssh](http://www.monkey.org/~provos/scanssh/),
-    * DNS: [`dig version.bind ch txt +short
-      @<IP>`](https://www.serveradminblog.com/2009/03/how-to-test-bind-version-running-on-dns-server/)
-      results in strings like
-        * `9.9.5-9+deb8u18-Debian`
-        * `9.11.4-P2-RedHat-9.11.4-9.P2.el7`
-        * `9.9.4-RedHat-9.9.4-74.el7_6.2`
+    * DNS:
+        * [`dig version.bind ch txt +short
+          @<IP>`](https://www.serveradminblog.com/2009/03/how-to-test-bind-version-running-on-dns-server/)
+          results in strings like
+            * `9.9.5-9+deb8u18-Debian`
+            * `9.11.4-P2-RedHat-9.11.4-9.P2.el7`
+            * `9.9.4-RedHat-9.9.4-74.el7_6.2`
+        * Please note that [fpdns](https://github.com/kirei/fpdns) is
+          about as (un)suitable as `nmap` for this purpose: It does
+          real fingerprinting and not evaluating the actual data it
+          can retrieve from a DNS server.
     * Generic TCP:
         * [pnscan](https://github.com/ptrrkssn/pnscan),
         * [masscan](https://github.com/robertdavidgraham/masscan),
