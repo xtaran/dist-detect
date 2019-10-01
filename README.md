@@ -124,6 +124,8 @@ Plans / Ideas
           about as (un)suitable as `nmap` for this purpose: It does
           real fingerprinting and not evaluating the actual data it
           can retrieve from a DNS server.
+    * Any service which provides exact Linux kernel versions, like
+      open Redis servers. ;-)
     * Generic TCP:
         * [pnscan](https://github.com/ptrrkssn/pnscan),
         * [masscan](https://github.com/robertdavidgraham/masscan),
