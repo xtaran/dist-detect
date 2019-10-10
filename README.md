@@ -99,13 +99,97 @@ TODO
   architecture. Handle this better.
 
 
-Plans / Ideas
--------------
+Plans
+-----
+
+### Consider Further Services
+
+If e.g. the SSH banner was `SSH-2.0-OpenSSH_7.4`, this could be (at
+least) a RHEL 7.4 or higher, or a macOS 10.12.4 to 10.12.6. So other
+protocols should add more confidence or limit the list of possible
+operating systems and distributions.
+
+#### HTTP / HTTPS
+
+```
+$ HEAD http://ssh-was-ambiguous/
+200 OK
+Connection: close
+Date: […]
+Server: Apache/2.4.6 (Red Hat Enterprise Linux)
+```
+
+Here, port 80 told us the distribution even though the SSH banner was
+ambiguous.
+
+```
+HEAD http://somecentos6/
+200 OK
+Date: […]
+Server: Apache/2.2.15 (CentOS)
+```
+
+#### SMTP
+
+```
+$ echo QUIT | nc mymailserver 25
+220 mymailserver ESMTP Postfix (Debian/GNU)
+221 2.0.0 Bye
+$ echo QUIT | nc afriendsmailserver 25
+220-afriendsmailserver ESMTP Proxmox
+221 2.0.0 Bye
+$ echo QUIT | nc anothermailserver 25
+220 anothermailserver ESMTP Exim 4.86_2 Ubuntu Thu, 10 Oct 2019 17:35:32 +0200
+221 anothermailserver closing connection
+```
+
+We often don't get the version, but at least the Linux
+distribution. Again helpful if the SSH banner is ambiguous.
+
+### DNS
+
+```
+$ dig +short -t txt -c chaos version.bind @ams.sns-pb.isc.org
+"9.9.7-P2"
+$ dig +short version.bind CH TXT @a.iana-servers.net
+"Knot DNS 2.6.3"
+ dig +short version.bind CH TXT @ns.nlnetlabs.nl
+"NSD 4.2.2"
+$ dig +short version.bind CH TXT oneofmydnsservers
+"9.9.5-9+deb8u18-Debian"
+$ dig +short version.bind CH TXT somerhel7
+"9.11.4-P2-RedHat-9.11.4-9.P2.el7"
+$ dig +short version.bind CH TXT anotherrhel7
+"9.9.4-RedHat-9.9.4-74.el7_6.2"
+$ dig version.bind ch txt +short @127.0.0.1
+"unbound 1.9.4"
+$ dig version.bind ch txt +short @192.168.1.1
+"dnsmasq-2.78"
+```
+
+Please note that [fpdns](https://github.com/kirei/fpdns) is about as
+(un)suitable as `nmap` for this purpose (but much faster): It does
+real fingerprinting and not evaluating the actual data it can retrieve
+from a DNS server.
+
+An exception would be cases like these:
+
+```
+$ dig +short version.bind CH TXT @8.8.8.8
+$ dig +short version.bind CH TXT @a.ns.nic.cz
+$ dig +short version.bind CH TXT @ns2.switch.ch
+"contact dns-operation@switch.ch"
+$ dig +short version.bind CH TXT @a.nic.de
+"ns-1.de.nl1.bind"
+```
+
+
+Ideas
+-----
 
 * Also store results and scan dates in a database.
 
-* Also check SMTP, HTTP and maybe other ports. (One suggestion was
-  e.g. SIP ports)
+* Someone suggested to also look at SIP ports.
 
 * Parse package changelogs for existing versions.
 
@@ -113,17 +197,6 @@ Plans / Ideas
 
     * SSH:
         * [scanssh](http://www.monkey.org/~provos/scanssh/),
-    * DNS:
-        * [`dig version.bind ch txt +short
-          @<IP>`](https://www.serveradminblog.com/2009/03/how-to-test-bind-version-running-on-dns-server/)
-          results in strings like
-            * `9.9.5-9+deb8u18-Debian`
-            * `9.11.4-P2-RedHat-9.11.4-9.P2.el7`
-            * `9.9.4-RedHat-9.9.4-74.el7_6.2`
-        * Please note that [fpdns](https://github.com/kirei/fpdns) is
-          about as (un)suitable as `nmap` for this purpose: It does
-          real fingerprinting and not evaluating the actual data it
-          can retrieve from a DNS server.
     * Any service which provides exact Linux kernel versions, like
       open Redis servers. ;-)
     * Generic TCP:
@@ -133,7 +206,7 @@ Plans / Ideas
     * Online (i.e. publicly available data):
         * [Shodan.io](https://www.shodan.io/)?
 
-* Ping ([fping](https://www.fping.org/)?) before scan.
+* Ping (likely with [fping](https://www.fping.org/)?) before scan.
 
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions instead of or in
