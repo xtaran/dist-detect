@@ -102,6 +102,11 @@ TODO
 Plans
 -----
 
+### Store most current OpenSSH release version in database
+
+The [bin/newest-openssh-version-on-*.pl](bin/) scripts are a good
+start for that.
+
 ### Consider Further Services
 
 If e.g. the SSH banner was `SSH-2.0-OpenSSH_7.4`, this could be (at
