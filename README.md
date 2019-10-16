@@ -222,6 +222,12 @@ Ideas
     * `openssh-multiple-bindaddress` (AUR)
     * `openssh-with-hpn` (nixpkgs)
 
+* Another source might be [Wikidata's OpenSSH
+  entry](https://www.wikidata.org/wiki/Q847062) and [its JSON
+  representation](https://www.wikidata.org/wiki/Special:EntityData/Q847062.json).
+    * Probably less reliable than repology because likely only manual
+      / crowd-sourced data updates.
+
 * Add support for more [Debian
   derivatives](https://wiki.debian.org/Derivatives/Census):
 
