@@ -143,7 +143,7 @@ Protocol mismatch.
 Schon schwieriger. Könnte u.a. ein RHEL 7.4 aufwärts als auch ein macOS 10.12.4 bis 10.12.6 sein.
 
 Obwohl Red Hat Enterprise Linux kein BSD ist, fehlt bei RHEL das
-ansonsten so typische `p1` der portable Version von OpenSSH.
+ansonsten so typische `p1` der "portable"-Version von OpenSSH.
 
 Aber wir haben ja noch mehr als nur SSH…
 
