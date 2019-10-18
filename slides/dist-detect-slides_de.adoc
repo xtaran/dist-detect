@@ -18,7 +18,7 @@ Agenda
 Slides
 ~~~~~~
 
-* https://github.com/xtaran/dist-detect → slides → dist-detect-slides_de.adoc, or
+* https://github.com/xtaran/dist-detect → slides → dist-detect-slides_de.adoc, oder
 * https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_de.adoc
 
 Motivation: Warum?
