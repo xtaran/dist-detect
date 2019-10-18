@@ -12,7 +12,10 @@ Agenda
 ------
 
 * Motivation
-* Daten-Quellen: Wo finde ich Indikatoren?
+
+* Daten-Quellen: Wo finde ich Hinweise auf die verwendete
+  Distribution?
+
 * Implementation: Ist-Zustand und Pläne
 
 Folien
