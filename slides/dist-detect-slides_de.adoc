@@ -41,7 +41,7 @@ Motivation: Gibt es sowas nicht schon?
 --------------------------------------
 
 Es gibt viele Tools, die Betriebssysteme erkennen und ungepatchte
-Server(-Software) finden. Aber fast alle sind sehr langsam oder
+Daemons finden. Aber fast alle sind sehr langsam oder
 ungenau oder beides:
 
 * Nessus, OpenVAS & Co:
@@ -254,7 +254,7 @@ uptime_in_days:15
 
 Hier erfahren wir auch entsprechend viel:
 
-* Betriebsystem ist RHEL 7 (wegen den `el7` in der Kernel-Version)
+* Betriebsystem ist RHEL 7 (wegen dem `el7` in der Kernel-Version)
 
 * Redis läuft in einem Container (Docker, etc.) weil die Prozeß-ID `1`
   ist, was eigentlich die des Init-Systems ist.
@@ -377,7 +377,7 @@ Dist-Detect: Stand des Projekts
   Paket-Repositories existiert.
 
 * Ein (SSH-) Scanner (nativ) funktioniert und ist halbwegs schnell
-  (ca. 10-15 Sekunden pro /24-Netzwerk, wenn alle Hosts online sind.
+  (ca. 10-15 Sekunden pro /24-Netzwerk), wenn alle Hosts online sind.
 
 * Der datenbank-basierte Interpreter funktioniert, kennt aber momentan nur Debian und
   Derivate.
@@ -537,3 +537,6 @@ Axel Beckert <axel@beckert.ch>
 Git-Repository: https://github.com/xtaran/dist-detect
 
 Folien: https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_de.adoc
+
+Fragen?
+~~~~~~~
