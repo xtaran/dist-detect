@@ -277,11 +277,15 @@ Thanks!
 Resources
 ---------
 
-### Short Slide Deck about Dist-Detect
+### Slide Decks about Dist-Detect
 
-[Slideshow via GitPitch](https://gitpitch.com/xtaran/dist-detect)
-([Source file rendered as normal Markdown
-file](https://github.com/xtaran/dist-detect/blob/master/PITCHME.md))
+* [Short Slideshow via
+  GitPitch](https://gitpitch.com/xtaran/dist-detect) ([Source file
+  rendered as normal Markdown
+  file](https://github.com/xtaran/dist-detect/blob/master/PITCHME.md))
+
+* [More verbose slide deck (German) based on AsciiDoc and
+  Slidy](https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_de.adoc)
 
 ### OpenSSH Upstream
 
