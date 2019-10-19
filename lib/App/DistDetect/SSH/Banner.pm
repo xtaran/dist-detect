@@ -68,6 +68,9 @@ sub expected_banner_from_version {
     $banner =~ s/^\d+://;
     my @potential_banners = ();
 
+    # Strip Backports, Security , etc. from banner
+    $os =~ s/-(Backports|Security)$//gi;
+
     my $v1 = supports_SSH_v1($version);
     my $v2 = supports_SSH_v2($version);
     my $db_set = supports_DebianBanner_setting($version);
