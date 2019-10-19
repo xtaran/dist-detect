@@ -28,7 +28,7 @@ use Mojo::SQLite;
 use List::Util qw(uniq);
 
 # TODO: Needs to be determined automatically and stored in DB.
-my $latest = '8.0';
+my $latest = '8.1';
 
 my $schema_dir = "$Bin/../sql";
 my $db_dir = "$Bin/../db";
