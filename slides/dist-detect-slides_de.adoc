@@ -528,10 +528,10 @@ Dist-Detect: Ideen
 
 * Pingen vor dem Scannen  (wahrscheinlich mit fping)
 
-* Vielleicht https://repology.org/api +
+* Vielleicht https://repology.org/api und
   https://repology.org/project/openssh/versions nutzen.
 
-* Vielleicht https://www.wikidata.org/wiki/Q847062 +
+* Vielleicht https://www.wikidata.org/wiki/Q847062 und
   https://www.wikidata.org/wiki/Special:EntityData/Q847062.json
   nutzen.
 
