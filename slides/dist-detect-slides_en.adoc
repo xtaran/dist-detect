@@ -392,8 +392,8 @@ Dist-Detect: State of the Project
 * An (SSH-) scanner (native) works and is relatively fast (ca. 10-15
   seconds per /24 network), if all hosts are online.
 
-* The database-basierte Interpreter funktioniert, kennt aber momentan nur Debian und
-  Derivate.
+* The database-based interpreter works, but currently only knows
+  Debian and derivates.
 
 * An older, manually written and no more up to date data set, which
   also knew about RHEL, CentOS and macOS still can be found in the git
