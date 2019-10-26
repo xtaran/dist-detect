@@ -1,4 +1,4 @@
-all: dist-detect-slides_de.html
+all: dist-detect-slides_de.html dist-detect-slides_en.html
 
 %.html: %.adoc Makefile
 	asciidoc $<

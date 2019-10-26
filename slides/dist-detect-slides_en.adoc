@@ -1,0 +1,554 @@
+Dist-Detect: A Low-Hanging-Fruit Distribution Detector
+======================================================
+:author:    Axel Beckert <axel@beckert.ch>
+:backend:   slidy
+:data-uri:
+:max-width: 99%
+:icons:
+:duration:  45
+
+
+Agenda
+------
+
+* Motivation
+
+* Data sources: Where do I find hints on the used distribution?
+
+* Implementation: current state and plans
+
+Slides
+~~~~~~
+
+* https://github.com/xtaran/dist-detect → slides → dist-detect-slides_en.adoc, oder
+* https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_en.adoc
+
+Motivation: Why?
+----------------
+
+Situations
+~~~~~~~~~~
+
+* Big, heterogene networks with many different administrators.
+* Getting an overview over potentially incomplete lists of inherited
+  servers.
+* Suspected compromise of a Linux/Unix machine you don't know
+  personally.
+
+Questions in these situations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Which distribution and which release is running on that machine?
+* Is the operating system "end of life"?
+* Are security updates applied?
+
+And you usually want the answers _fast_. :-)
+
+
+Motivation: Doesn't such tools already exist?
+---------------------------------------------
+
+There are many tools, which recognize operating systems and unpatched
+daemons. But most of them are slow, imprecise, or both:
+
+* Nessus, OpenVAS & Co:
+
+** Slow, needs minutes per server and hours to days depending on the
+   network size.
+
+** They search for specific security holes, and don't do a general
+   judgement or classification.
+
+** They sometimes just use upstream version numbers to make statements
+   about security issues — which often leads to false positives as
+   distributions often just fix security issues without bumping to a
+   new upstream release.
+
+** They may overload the checked service or server due to trying out
+   many exploits.
+
+* Nmap:
+
+** Very slow, even with `-T aggressive`
+
+** operating system detection very inaccurate, just based on network
+   package metadata, not contents.
+
+** Needs at least one closed and one open port to detect the operating
+   system.
+
+* p0f:
+
+** Only passive, not active
+
+** Inaccurate with modern operating systems.
+
+Scanning a whole /16 network (65536 IP addresses) takes a lot of time
+and isn't very precise. 😭
+
+
+Motivation: There are alternatives!
+-----------------------------------
+
+* Many daemons tell their version in every or some simple server
+  responses.
+
+* A specific daemon version is only shipped in one or a few
+  distribution releases.
+
+* Quite some packaged daemons tell their exact distribution package
+  version, especially OpenSSH.
+
+* Port 22 (SSH) is active on nearly every Linux/Unix server and often
+  reachable at least from internal networks,
+
+* Some daemons even tell you the kernel version under which they're
+  running.
+
+
+Data Sources 1/6: SSH
+---------------------
+
+.Example 1
+----
+$ echo 'foobar' | nc rancidbox 22
+SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.3
+Protocol mismatch.
+----
+
+Did you guess the distribution?
+
+Now that was easy!
+
+But we can get more information out of this: The version number tells
+us that this is an Ubuntu 16.04 LTS (or close derivative), which
+misses OpenSSH security updates mid-2018 - and probably other security
+updates, too.
+
+.Example 2
+----
+$ echo 'foobar' | nc ohoh 22
+SSH-2.0-OpenSSH_6.0p1 Debian-4+deb7u10
+Protocol mismatch.
+----
+
+Here is even the Debian release easily recognizable since the suffix
+`…+deb7u…` is only used for Debian 7 Wheezy updates. Wheezy still has ELTS
+until the end of the year (if Intel architecture), but virtually™ is already
+EoL clearly will be EoL on New Year's Eve.
+
+.Example 3.1
+----
+$ echo 'foobar' | nc somewhat-ambiguous 22
+SSH-2.0-OpenSSH_7.4
+Protocol mismatch.
+----
+
+Already more difficult. Might be a RHEL 7.4 onwards or a macOS 10.12.4
+to 10.12.6.
+
+Despite Red Hat Enterprise Linux is not a BSD, it misses the otherwise
+typical `p1` of the "portable"version of OpenSSH.
+
+But we can look at more than just SSH…
+
+
+Data Sources 2/6: Web Server
+----------------------------
+
+Let's continue the previous example and have a look at another daemon:
+
+.Example 3.2
+----
+$ HEAD http://somewhat-ambiguous/
+200 OK
+Connection: close
+Date: […]
+Server: Apache/2.4.6 (Red Hat Enterprise Linux)
+----
+
+Now the previous ambiguity is gone: It's a RHEL 7.
+
+Hinweis
+~~~~~~~
+
+* Especially Apache nowadays doesn't even tell its version. But
+  especially the commercial distributions seem to value the effect of
+  global usage statistics more than not patching their daemons with
+  their product name… :-)
+
+
+Data Sources 3/6: Mail Server
+-----------------------------
+
+.Example 4
+----
+$ echo QUIT | nc my-mail-server 25
+220 my-mail-server ESMTP Postfix (Debian/GNU)
+221 2.0.0 Bye
+$ echo QUIT | nc a-friends-mail-server 25
+220-a-friends-mail-server ESMTP Proxmox
+221 2.0.0 Bye
+$ echo QUIT | nc another-mail-server 25
+220 another-mail-server ESMTP Exim 4.86_2 Ubuntu Thu, 10 Oct 2019 17:35:32 +0200
+221 another-mail-server closing connection
+----
+
+Here we often don't get the daemon version, but clearly the
+distribution.
+
+
+Data Sources 4/6: DNS Server
+----------------------------
+
+.Example 5
+----
+$ dig +short -t txt -c chaos version.bind @ams.sns-pb.isc.org
+"9.9.7-P2"
+$ dig +short version.bind CH TXT @a.iana-servers.net
+"Knot DNS 2.6.3"
+ dig +short version.bind CH TXT @ns.nlnetlabs.nl
+"NSD 4.2.2"
+$ dig +short version.bind CH TXT one-of-my-dns-servers
+"9.9.5-9+deb8u18-Debian"
+$ dig +short version.bind CH TXT some-rhel7
+"9.11.4-P2-RedHat-9.11.4-9.P2.el7"
+$ dig +short version.bind CH TXT anothe-rrhel7
+"9.9.4-RedHat-9.9.4-74.el7_6.2"
+$ dig version.bind ch txt +short @127.0.0.1
+"unbound 1.9.4"
+$ dig version.bind ch txt +short @192.168.1.1
+"dnsmasq-2.78"
+----
+
+Also DNS servers bespeak much.
+
+But not seldomly, they also reveal nothing or only what the
+administrators want to reveal explicitly:
+
+.Example 6
+----
+$ dig +short version.bind CH TXT @8.8.8.8
+$ dig +short version.bind CH TXT @a.ns.nic.cz
+$ dig +short version.bind CH TXT @ns2.switch.ch
+"contact dns-operation@switch.ch"
+$ dig +short version.bind CH TXT @a.nic.de
+"ns-1.de.nl1.bind"
+----
+
+
+Data Sources 5/6: Open Redis Servers
+------------------------------------
+
+At this point it becomes clear that this kind of information gathering
+is not only for analyzing internal systems but might also be helpful
+with e.g. pen-testing.
+
+.Example 7
+----
+$ redis-cli -h unintentionally-open-redis-server
+redis> info
+# Server
+redis_version:3.0.7
+redis_git_sha1:3c968ff0
+redis_git_dirty:0
+redis_build_id:51089de051945df4
+redis_mode:standalone
+os:Linux 3.10.0-957.21.3.el7.x86_64 x86_64
+arch_bits:64
+multiplexing_api:epoll
+atomicvar_api:atomic-builtin
+gcc_version:6.3.0
+process_id:1
+run_id:b770a8af038963f3d1b55358c2e376d0b5e00182
+tcp_port:6379
+uptime_in_seconds:1344070
+uptime_in_days:15
+[…]
+----
+
+This tells us a lot:
+
+* OS is RHEL 7 (because of the `el7` in the kernel version)
+
+* Redis runs inside a container (Docker, etc.) due to process ID `1` —
+  which is usually the pid of the init system.
+
+* Intel/AMD 64 bit architecture
+
+More examples of this kind: https://www.shodan.io/search?query=6379
+
+
+Data Sources 6/6: Open MongoDB Servers
+--------------------------------------
+
+.Example 8
+----
+$ mongo 192.0.2.79
+[…]
+> db.serverBuildInfo()
+{
+        "version" : "4.0.10",
+        "gitVersion" : "c389e7f69f637f7a1ac3cc9fae843b635f20b766",
+        "sysInfo" : "deprecated",
+        […],
+        "openssl" : {
+                "running" : "OpenSSL 1.1.1  11 Sep 2018",
+                "compiled" : "OpenSSL 1.1.0g  2 Nov 2017"
+        },
+        "buildEnvironment" : {
+                "distmod" : "ubuntu1804",
+                "distarch" : "x86_64",
+                "cc" : "/opt/mongodbtoolchain/v2/bin/gcc: gcc (GCC) 5.4.0",
+                "ccflags" : "-fno-omit-frame-pointer -fno-strict-aliasing -ggdb -pthread -Wall -Wsign-compare -Wno-unknown-pragmas -Winvalid-pch -Werror -O2 -Wno-unused-local-typedefs -Wno-unused-function -Wno-deprecated-declarations -Wno-unused-but-set-variable -Wno-missing-braces -fstack-protector-strong -fno-builtin-memcmp",
+                "cxx" : "/opt/mongodbtoolchain/v2/bin/g++: g++ (GCC) 5.4.0",
+                "cxxflags" : "-Woverloaded-virtual -Wno-maybe-uninitialized -std=c++14",
+                "linkflags" : "-pthread -Wl,-z,now -rdynamic -Wl,--fatal-warnings -fstack-protector-strong -fuse-ld=gold -Wl,--build-id -Wl,--hash-style=gnu -Wl,-z,noexecstack -Wl,--warn-execstack -Wl,-z,relro",
+                "target_arch" : "x86_64",
+                "target_os" : "linux"
+        },
+        "bits" : 64,
+        […]
+}
+>
+----
+
+Interesting for our purposes:
+
+* `"distmod" : "ubuntu1804"`
+* `"openssl" : { […], "compiled" : "OpenSSL 1.1.0g  2 Nov 2017" }`
+
+More examples of this kind: https://www.shodan.io/search?query=distmod
+
+
+Dist-Detect: Purpose
+--------------------
+
+Automating the so far manual analysis of daemon responses.
+
+Quickly getting an idea…
+
+* which Linux/BSD/Unix distribution and which release is running on a
+  remote system;
+
+* if the admin applies security updates regularly; and
+
+* if the remote system runs an OS release which is "end of life",
+
+only by looking at the responses of a few common network daemons — without disturbing the service.
+
+
+Focus on Low Hanging Fruits
+---------------------------
+
+* As *few false positives* as possible: If the program finds something
+  bad, it's also bad.
+
+* *False Negatives are expected*: Unknown or ambiguous versions
+  stay unknown or ambiguous.
+
+
+Dist-Detect: Components
+-----------------------
+
+Infrastructure / Cron Jobs
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Downloader: Downloads package lists and release information (EoL dates,
+  etc.) of configured distributions.
+
+* Scraper: parses these package lists and documents in a database,
+
+** which version is in which distribution and which release;
+
+** which old versionen have existed (calculated/guessed) and
+   are no more up to date;
+
+** issues tags like `EoL`, `LTS`, `ELTS`, `ESM`, `Backport`, `Ancient`
+  (older than the longest available support interval), `Bleeding Edge`
+  (newest OpenSSH version), …
+
+Operation: Scanning and Analysing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Scanner: collects daemon responses
+
+* Interpreter: interprets the daemon responses and searches in the
+  database for
+
+** according distributions and releases, and
+
+** tags
+
+
+Dist-Detect: State of the Project
+---------------------------------
+
+"Work in Progress"
+
+* A downloader and scraper for Debian, Ubuntu and Raspbian package
+  repositories exists.
+
+* An (SSH-) scanner (native) works and is relatively fast (ca. 10-15
+  seconds per /24 network), if all hosts are online.
+
+* The database-basierte Interpreter funktioniert, kennt aber momentan nur Debian und
+  Derivate.
+
+* An older, manually written and no more up to date data set, which
+  also knew about RHEL, CentOS and macOS still can be found in the git
+  history.
+
+
+Handwritten Prototype: Excerpt
+------------------------------
+
+.Examples of Regular Expressions
+----
+# Debian 3.1 Sarge
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_3.8.1p1 Debian-8\E($|\.sarge)/s => '[EoL] Debian 3.1 Sarge',
+# Debian 6.0 Squeeze
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_5.5p1 Debian-6/s => '[EoL] Debian 6.0 Squeeze',
+# Debian 7 Wheezy
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Debian-4+deb7u10\E$/s => 'Debian 7 ELTS Wheezy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Debian-4+deb7u\E[89]$/s => '[NO-SEC-UPD] Debian 7 ELTS Wheezy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Debian-4+deb7u7\E$/s => '[EoL-ish] [NO-ELTS] Debian 7 LTS Wheezy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Debian-4\E($|\+deb7u[1-6]\b)/s => '[EoL-ish] [NO-SEC-UPD] Debian 7 LTS Wheezy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6p1 Debian-4~bpo70+1\E$/s => '[NO-SEC-UPD] Debian 7 Wheezy + Backports',
+# Debian 8 Jessie
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1 Debian-5+deb8u7\E$/s => 'Debian 8 LTS Jessie',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1 Debian-5\E($|\+deb8u[1-6]\b)/s => '[NO-SEC-UPD] Debian 8 LTS Jessie',
+# Debian 9 Stretch
+qr/^\QSSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u5\E\b/s => 'Debian 9 Stretch',
+qr/^\QSSH-2.0-OpenSSH_7.4p1 Debian-\E([1-9]|10\+deb9u[1-4])\b/s => '[NO-SEC-UPD] Debian 9 Stretch',
+# Raspbian
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Raspbian-4\E\b/s => '[EoL] Raspbian 7 Wheezy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1 Raspbian-5\E\b/s => '[EoL-ish] Raspbian 8 Jessie',
+qr/^\QSSH-2.0-OpenSSH_7.4p1 Raspbian-10\E\b/s => 'Raspbian 9 Stretch',
+# Debian/Raspbian with "DebianBanner=no"
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1\E$/s => '[EoL-ish] (maybe) Debian 7 Wheezy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1\E$/s => '(maybe) Debian 8 Jessie',
+qr/^\QSSH-2.0-OpenSSH_7.4p1\E$/s => '(maybe) Debian 9 Stretch',
+# Ubuntu
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_3.8.1p1 Debian-11ubuntu/s => '[EoL] Ubuntu 4.10 Warty',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_4.7p1 Debian-8ubuntu/s => '[EoL] Ubuntu 8.04 LTS Hardy',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_5.3p1 Debian-3ubuntu/s => '[EoL] Ubuntu 10.04 LTS Lucid',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_5.5p1 Debian-4ubuntu/s => '[EoL] Ubuntu 10.10 Maverick',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_5.8p1 Debian-7ubuntu/s => '[EoL] Ubuntu 11.10',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_5.9p1 Debian-\E[45]ubuntu/s => '[EoL-ish] Ubuntu 12.04 LTS Precise',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6p1 Ubuntu-4ubuntu/s => '[NO-SEC-UPD] Ubuntu 14.04 LTS Trusty w/o 6.6.1 fix',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.10/s => 'Ubuntu 14.04 LTS Trusty',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu\E(1|2|2\.[0-9])$/s => '[NO-SEC-UPD] Ubuntu 14.04 LTS Trusty',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1\E$/s => '(maybe) Ubuntu 14.04 LTS Trusty',
+qr/^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1 Ubuntu-5ubuntu/s => '[EoL] Ubuntu 15.04 Vivid',
+qr/^\QSSH-2.0-OpenSSH_7.2p2 Ubuntu-4\E($|ubuntu(1|1\.\d+|2|2\.[0-6]))$/s => '[NO-SEC-UPD] Ubuntu 16.04 LTS Xenial',
+qr/^\QSSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.7\E\b/s => 'Ubuntu 16.04 LTS Xenial',
+qr/^\QSSH-2.0-OpenSSH_7.5p1 Ubuntu-10ubuntu0.1/s => '[EoL] Ubuntu 17.10 Artful',
+qr/^\QSSH-2.0-OpenSSH_7.6p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.04 LTS Bionic',
+qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
+----
+
+Dist-Detect: TODO
+-----------------
+
+* Re-add knowledge about CentOS/RHEL and macOS
+
+** Write a package list downloader and scrapter
+
+** Maybe also ship seldemly changing data staically,
+
+* Make a difference between package repositories, in which the SSH
+  signatures change often (with package version in the banner) and
+  those where they change seldemly (without package version in the banner).
+
+* Making the output more readable, maybe two variants:
+
+** human-readable
+
+** machine-readable
+
+* Debian 8 Jessie currently can be found on both, the normal mirrors
+  as well as in the historic archive. This situation is currently not
+  handled correctly.
+
+* Support further Debian derivates →
+  https://wiki.debian.org/Derivatives/Census
+
+** Supported distributions like Trisquel, Linux Mint, Kali Linux, …
+
+** Live CDs like Tails, Grml and Knoppix
+
+** Discontinued distributions (you want to detect them, too) like
+   Tanglu.
+
+
+Dist-Detect: Plans
+------------------
+
+* Save the currently newest OpenSSH version in the database →
+  `bin/newest-openssh-version-on-*.pl`
+
+* Query additionally services (HTTP/HTTPS, SMTP, DNS, etc.) in case of
+  ambiguity (or maybe always?)
+
+* Unit Testing
+
+** Travis CI
+** Coveralls
+
+* Package for CPAN.
+
+** probably with `Dist::Zilla` aka `dzil`
+
+* Package for Debian.
+
+** probably with `dh-dist-zilla`.
+
+
+Dist-Detect: Ideas
+------------------
+
+* Also save the scan results and scan dates in a database.
+
+* Check if SIP services can be used for this, too.
+
+* Parse package changelogs to get all previous package versions —
+  instead of guessing.
+
+* Optional scanning backends
+
+** SSH: scanssh
+
+** Generic TCP: pnscan, masscan, pf_ring?
+
+** Every service which tells you the exact kernel version (like open
+   Redis and MongoDB servers. ;-)
+
+** Online (i.e. publicly available data):
+
+*** Shodan.io?
+
+*** Nessus-/OpenVAS-Reports?
+
+* Ping before scan (probably with fping)
+
+* Maybe use https://repology.org/api and
+  https://repology.org/project/openssh/versions
+
+* Maybe yse https://www.wikidata.org/wiki/Q847062 and
+  https://www.wikidata.org/wiki/Special:EntityData/Q847062.json
+
+* Negative facts ("can't be a RedHat")
+
+
+Contact and Slides
+------------------
+
+Axel Beckert <axel@beckert.ch>
+
+Git repository: https://github.com/xtaran/dist-detect
+
+Slides: https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_en.adoc
+
+Questions?
+~~~~~~~~~~
