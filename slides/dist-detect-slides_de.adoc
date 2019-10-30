@@ -537,6 +537,10 @@ Dist-Detect: Ideen
 
 * Negativ-Antworten ("kann kein RedHat sein")
 
+* Optional den Paketlisten-Parser für jeden Banner einer nicht mehr
+  aktuellen oder End-of-Life-Version Regeln für SNORT (und damit auch
+  Suricata) und/oder Zeek (bisher als Bro bekannt) generieren lassen.
+
 
 Kontakt und Folien
 ------------------

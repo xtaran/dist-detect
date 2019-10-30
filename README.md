@@ -240,6 +240,10 @@ Ideas
     * Live-CDs like Tails, Grml and Knoppix
     * Discontinued ones (you also want to detect them) like Tanglu
 
+* Let the package list parser optionally generate rules from every
+  banner of a non-up-to-date or end-of-life version for SNORT (and
+  hence also Suricata) and/or Zeek (formerly known as Bro).
+
 
 License and Copyright
 ---------------------

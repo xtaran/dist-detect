@@ -540,6 +540,10 @@ Dist-Detect: Ideas
 
 * Negative facts ("can't be a RedHat")
 
+* Let the package list parser optionally generate rules from every
+  banner of a non-up-to-date or end-of-life version for SNORT (and
+  hence also Suricata) and/or Zeek (formerly known as Bro).
+
 
 Contact and Slides
 ------------------
