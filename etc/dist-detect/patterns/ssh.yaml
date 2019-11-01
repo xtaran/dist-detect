@@ -142,7 +142,7 @@ fallback:
 
   ### Red Hat / CentOS
 
-  - RHL 7.3 (2002, pre-fedora):
+  - "RHL 7.3 (2002, pre-fedora)":
       tags: [EoL]
       certainty: possible
       pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_3.1p1\E$
@@ -230,7 +230,7 @@ fallback:
       certainty: possible
       pattern: ^\QSSH-2.0-OpenSSH_6.9\E$
 
-  - OS X, 10.12 Sierra:
+  - OS X 10.12 Sierra:
       certainty: possible
       pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
 
