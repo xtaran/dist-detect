@@ -1,0 +1,230 @@
+---
+fallback:
+
+  ### EoL Debian Releases
+
+  - Debian 3.1 Sarge:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_3.8.1p1 Debian-8\E($|\.sarge)
+
+  - Debian 6.0 Squeeze:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.5p1 Debian-6
+
+  - Debian 7 Wheezy:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Debian-4
+
+  ### EoL Raspbian Releases
+
+  - Raspbian 7 Wheezy:
+      tags: [EoL, RaspberryPi]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Raspbian-4\E\b
+
+  ### EoL Ubuntu Releases
+
+  - Ubuntu 4.10 Warty:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_3.8.1p1 Debian-11ubuntu
+
+  - Ubuntu 8.04 LTS Hardy:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_4.7p1 Debian-8ubuntu
+
+  - Ubuntu 10.04 LTS Lucid:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.3p1 Debian-3ubuntu
+
+  - Ubuntu 10.10 Maverick:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.5p1 Debian-4ubuntu
+
+  - Ubuntu 11.10 Oneiric:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.8p1 Debian-7ubuntu
+
+  - Ubuntu 12.04 LTS Precise:
+      tags: [EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.9p1 Debian-\E[45]ubuntu
+
+  - Ubuntu 14.04 LTS Trusty:
+      tags: [EoL, NoSecUpd, No661Fix]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6p1 Ubuntu-4ubuntu
+
+  - Ubuntu 14.04 LTS Trusty:
+      tags: [EoL, NoSecUpd]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu\E(1|2|2\.([0-9]|1[0-2])$
+
+  - Ubuntu 14.04 LTS Trusty:
+      tags: [EoL, 'ESM?']
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13\E$
+
+  - Ubuntu 14.04 LTS Trusty:
+      tags: [ESM]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.\E(1[4-9]|[2-9][0-9])$
+
+  - Ubuntu 15.04 Vivid:
+      tags: [EoL]
+      # This pattern might need improvement: Remove "ubuntu" suffix?
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1 Ubuntu-5ubuntu
+
+  - Ubuntu 17.10 Artful:
+      tags: [EoL]
+      # This pattern might need improvement: Remove "ubuntu0.1" suffix?
+      pattern: ^\QSSH-2.0-OpenSSH_7.5p1 Ubuntu-10ubuntu0.1
+
+  - Ubuntu 18.10 Cosmic:
+      tags: [EoL]
+      # This pattern probably can be simpler: Remove "\E(\b|ubuntu)" suffix?
+      pattern: ^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)
+
+  ### Debian/Raspbian/Ubuntu with "DebianBanner=no"
+
+  - Debian 7 Wheezy:
+      tags: [EoL, maybe]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1\E$
+
+  - Debian 8 Jessie:
+      tags: [maybe, LTS]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1\E$
+
+  - Debian 9 Stretch:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.4p1\E$
+
+  - Raspbian 7 Wheezy:
+      tags: [EoL, maybe]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1\E$
+
+  - Raspbian 8 Jessie:
+      tags: [maybe, EoL]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.7p1\E$
+
+  - Raspbian 9 Stretch:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.4p1\E$
+
+  - Ubuntu 14.04 LTS Trusty:
+      tags: [EoL, maybe, 'ESM?']
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1$
+
+  - Ubuntu 14.04 LTS Trusty:
+      tags: [EoL, maybe, NoSecUpd]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6p1$
+
+  ### Red Hat / CentOS
+
+  - RHL 7.3 (2002, pre-fedora):
+      tags: [EoL, maybe]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_3.1p1\E$
+
+  - RHEL/CentOS 5:
+      tags: [EoL, maybe]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_4.3\E$
+    
+  - RHEL/CentOS 6:
+      tags: [maybe]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.3\E$
+
+  # https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/7.4_release_notes/#BZ1341754
+  # https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/7.1_release_notes/#idm140132757747728
+  # https://www.certdepot.net/rhel7-changes-between-versions/
+
+  - RHEL 7.0 / CentOS 7.0-1406:
+      tags: [NoSecUpd, maybe]
+      # This pattern might need improvement: SSH v1 still supported?
+      pattern: ^\QSSH-2.0-OpenSSH_6.4\E$
+    
+  - RHEL 7.1→3 / CentOS 7-1503→1611:
+      tags: [NoSecUpd, maybe]
+      # This pattern might need improvement: SSH v1 still supported?
+      pattern: ^\QSSH-2.0-OpenSSH_6.6.1\E$
+
+  - RHEL 7.4+ / CentOS 7-1708+:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
+
+  # TODO: RHEL / CentOS 8
+
+  # SuSE / SLES / openSUSE
+
+  - openSUSE 10.x / SLES 10.x:
+      tags: [EoL, maybe]
+      pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.0\E$
+  
+  # Apple: MacOS X, OS X, macOS; see https://opensource.apple.com/
+
+  - Mac OS X 10.4 Tiger:
+      tags: [maybe]
+      # TODO: 10.4 surely also had earlier OpenSSH versions if 10.5 had them, too
+      pattern: ^\QSSH-2.0-OpenSSH_5.1\E$ 
+
+  - Mac OS X 10.5 Leopard:
+      # TODO: Check if the NoSecUpd tag is valid
+      tags: [NoSecUpd]
+      pattern: ^\QSSH-2.0-OpenSSH_4.5\E$
+
+  - Mac OS X 10.5.8 Leopard:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_5.1\E$
+
+  - Mac OS X 10.6 Snow Leopard:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_5.2\E$
+
+  - Mac OS X 10.7 Lion:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_5.6\E$
+
+  - OS X 10.8 Mountain Lion:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_5.9\E$
+
+  - OS X 10.9 Mavericks:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_6.2\E$
+
+  - OS X 10.10 Yosemite:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_6.2\E$
+
+  - OS X 10.11 El Capitan:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_6.9\E$
+
+  - macOS 10.12.1 Sierra:
+      tags: [maybe, NoSecUpd]
+      pattern: ^\QSSH-2.0-OpenSSH_6.9\E$
+
+  - OS X, 10.12 Sierra:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
+
+  # https://developer.apple.com/library/archive/technotes/tn2449/_index.html
+  # https://jira.atlassian.com/browse/SRCTREE-4346
+
+  - macOS 10.12.1 Sierra:
+      tags: [maybe, NoSecUpd]
+      pattern: ^\QSSH-2.0-OpenSSH_7.2\E$
+
+  - macOS 10.12.2 → 10.12.3 Sierra:
+      tags: [maybe, NoSecUpd]
+      pattern: ^\QSSH-2.0-OpenSSH_7.3\E$
+
+  - macOS 10.12.4 → 10.12.6 Sierra:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
+
+  - macOS 10.13 High Sierra:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.6\E$
+
+  - macOS 10.14 Mojave:
+      tags: [maybe]
+      pattern: ^\QSSH-2.0-OpenSSH_7.7\E$
+
+  ### Embedded
+
+  - cryptlib SSHd (maybe APC AOS):
+      tags: [Embedded]
+      pattern: ^\QSSH-1.99-cryptlib\E$
