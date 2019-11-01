@@ -103,18 +103,20 @@ while (<>) {
         if ($sshbanner =~ $key) {
             $match = join(',',
                           uniq(
-                              map {
-                                  my $text = $_->{os};
-                                  if (exists($_->{tags})) {
-                                      $text =
-                                          '['.
-                                          join(',', @{$_->{tags}}).
-                                          '] '.
-                                          $text;
-                                  }
-                                  $text;
-                              } @{$ssh_static{$key}},
-                              $match ? $match : ()
+                              (
+                               map {
+                                   my $text = $_->{os};
+                                   if (exists($_->{tags})) {
+                                       $text =
+                                           '['.
+                                             join(',', @{$_->{tags}}).
+                                             '] '.
+                                           $text;
+                                   }
+                                   $text;
+                               } @{$ssh_static{$key}}
+                              ),
+                              $match ? split(/,/, $match) : ()
                           )
                 );
         }
