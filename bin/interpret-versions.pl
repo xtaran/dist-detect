@@ -25,7 +25,7 @@ use 5.010;
 use FindBin qw($Bin);
 
 use Mojo::SQLite;
-use YAML::Tiny;
+use YAML::Any qw(LoadFile);
 use List::Util qw(uniq);
 
 # TODO: Needs to be determined automatically and stored in DB.
@@ -54,10 +54,14 @@ while (my $next = $banners->hash) {
          $next->{source} =~ s/([^:]*:[^:]*):.*$/$1/r);
 }
 
-my $yaml = YAML::Tiny->read($ssh_yaml);
+my $yaml = LoadFile($ssh_yaml);
 use Data::Printer;
 p $yaml;
-my $ssh_static = $yaml->[0]{fallback};
+
+# YAML::Tiny supports multiple documents in one YAML file, just use
+# the first one
+$yaml = $yaml->[0] if 'ARRAY' eq ref $yaml;
+my $ssh_static = $yaml->{fallback};
 my %ssh_static = ();
 
 foreach my $os_hash (@$ssh_static) {
