@@ -393,11 +393,8 @@ Dist-Detect: State of the Project
   seconds per /24 network), if all hosts are online.
 
 * The database-based interpreter works, but currently only knows
-  Debian and derivates.
-
-* An older, manually written and no more up to date data set, which
-  also knew about RHEL, CentOS and macOS still can be found in the git
-  history.
+  Debian and derivates. RHEL/CentOS and macOS are recognized via
+  static rules (configuration files).
 
 
 Handwritten Prototype: Excerpt
@@ -451,11 +448,8 @@ qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
 Dist-Detect: TODO
 -----------------
 
-* Re-add knowledge about CentOS/RHEL and macOS
-
-** Write a package list downloader and scrapter
-
-** Maybe also ship seldemly changing data staically,
+* Write a package list downloader and scraper for CentOS, openSUSE and
+  macOS.
 
 * Make a difference between package repositories, in which the SSH
   signatures change often (with package version in the banner) and
@@ -466,6 +460,8 @@ Dist-Detect: TODO
 ** human-readable
 
 ** machine-readable
+
+** Or a format which offers both, maybe YAML.
 
 * Debian 8 Jessie currently can be found on both, the normal mirrors
   as well as in the historic archive. This situation is currently not

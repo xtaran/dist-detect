@@ -161,13 +161,9 @@ Current State of Project
 * Scanner (native) works and is reasonably fast (about 10-15 seconds
   per /24 if all hosts are online)
 
-* Version string interpreter works, but currently only knows about
-  Debian and derivatives. (And older, manually written and horribly
-  outdated version which also knows about RHEL, CentOS and macOS can
-  be found in the Git history.)
-
 * A scraper for Debian, Ubuntu and Raspbian package repositories
-  exist.
+  exist. Other distributions are currently only recoginzed via static
+  patterns.
 
 ---
 
@@ -226,19 +222,15 @@ qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
 TODO
 ----
 
-* Re-add CentOS/RHEL and macOS knowledge
-
-    * Add package list scrapers.
+* Add package list downloaders and scrapers for CentOS, openSUSE and macOS.
 
     * Maybe use https://repology.org/api +
       https://repology.org/project/openssh/versions
 
-    * Maybe ship static data for seldomly changing data.
-
 * Distinguish between repos where SSH signatures changes often
   and where they change seldomly.
 
-* Make output more readable.
+* Make output more readable. Maybe YAML?
 
 * Debian Jessie is atm. available on the normal mirrors and in
   the historical archive. Handle this better.

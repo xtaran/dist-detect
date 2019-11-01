@@ -388,12 +388,9 @@ Dist-Detect: Stand des Projekts
 * Ein (SSH-) Scanner (nativ) funktioniert und ist halbwegs schnell
   (ca. 10-15 Sekunden pro /24-Netzwerk), wenn alle Hosts online sind.
 
-* Der datenbank-basierte Interpreter funktioniert, kennt aber momentan nur Debian und
-  Derivate.
-
-* Eine ältere, manuell geschriebene und nicht mehr aktuelle
-  Datenbasis, die auch RHEL, CentOS und macOS kennt, findet sich noch
-  in der Git-Historie.)
+* Der datenbank-basierte Interpreter funktioniert, kennt aber momentan
+  nur Debian und Derivate. RHEL/CentOS und macOS werden via statische
+  Regeln (Konfig-Dateien) erkannt.
 
 
 Handgeschriebener Prototyp: Auszug
@@ -447,11 +444,8 @@ qr/^\QSSH-2.0-OpenSSH_7.7p1 Ubuntu-4\E(\b|ubuntu)/s => 'Ubuntu 18.10 Cosmic',
 Dist-Detect: TODO
 -----------------
 
-* Wieder Hinzufügen des Wissens über CentOS/RHEL und macOS
-
-** Paketlisten-Downloader und -Scraper schreiben.
-
-** Vielleicht sich selten ändernde Daten statisch mitliefern.
+* Paketlisten-Downloader und -Scraper für CentOS, openSUSE und macOS
+  schreiben.
 
 * Unterscheiden zwischen Paketrepos, in denen die SSH-Signaturen
   häufig (mit Paketversion im Banner) und selten (ohne Paketversion im
@@ -462,6 +456,8 @@ Dist-Detect: TODO
 ** Menschenlesbar
 
 ** Maschinenlesbar
+
+** Oder ein Format, das beides bietet, evtl. YAML.
 
 * Debian 8 Jessie ist momentan sowohl auf den normalen Mirrors als
   auch im historischen Archiv. Diese Situation wird momentan nicht

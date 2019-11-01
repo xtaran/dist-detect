@@ -79,19 +79,17 @@ should be no real issue.)
 TODO
 ----
 
-* Re-add CentOS/RHEL and macOS knowledge
-
-    * Maybe add package list scrapers.
-
-    * Maybe ship static data for these rather seldomly changing
-      signatures.
+* Add package list downloaders and scrapers for CentOS, openSUSE and
+  macOS.
 
 * Distinguish between repos where SSH signatures changes often (active
   security mirrors of Debian and derivatives) and where they change
   seldomly (old-releases.ubuntu.com / archive.debian.org).
 
 * Make output more human readable. Maybe use a commandline switch to
-  produce either machine or human readable output.
+  produce either machine or human readable output. The human readable
+  output could be still machine readable by e.g. using YAML instead of
+  purely line-based formats.
 
 * Debian Jessie is at the moment available on the normal mirrors and
   in the historical archive and hence gets flagged EOL even if that
