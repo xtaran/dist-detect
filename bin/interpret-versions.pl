@@ -25,6 +25,8 @@ use 5.010;
 use FindBin qw($Bin);
 
 use Mojo::SQLite;
+use YAML;
+use Path::Tiny;
 use List::Util qw(uniq);
 
 # TODO: Needs to be determined automatically and stored in DB.
@@ -32,12 +34,14 @@ my $latest = '8.1';
 
 my $schema_dir = "$Bin/../sql";
 my $db_dir = "$Bin/../db";
+my $etc_dir = "$Bin/../etc/dist-detect/patterns";
 my $sql = Mojo::SQLite->new("sqlite:$db_dir/pattern.db");
 $sql-> migrations
     -> name('packagelists')
     -> from_file("$schema_dir/pattern.sql")
     -> migrate;
 my $db = $sql->db;
+my $ssh_yaml = "$etc_dir/ssh.yaml";
 
 my %ssh = ();
 my $banners = $db->query('select * from banner2version join version2os on banner2version.version=version2os.version and banner2version.os=version2os.os');
@@ -49,6 +53,24 @@ while (my $next = $banners->hash) {
     push(@{$ssh{$next->{banner}}},
          ($next->{tags} ? '['.$next->{tags}.'] ' : '').
          $next->{source} =~ s/([^:]*:[^:]*):.*$/$1/r);
+}
+
+my $yaml = Load(path($ssh_yaml)->slurp_utf8);
+use Data::Printer;
+my $ssh_static = $yaml->{fallback};
+my %ssh_static = ();
+
+foreach my $os_hash (@$ssh_static) {
+    my $pattern_text = $os_hash->{pattern};
+    # Handle \Q…\E escapes which don't work inside variable
+    # values. Taken from https://www.perlmonks.org/?node_id=998919
+    $pattern_text =~ s/\\Q(.*?)(\\E|$)/quotemeta $1/ge;
+    my $pattern = qr/$pattern_text/;
+    if (exists $ssh_static{$pattern}) {
+        push(@{$ssh_static{$pattern}}, $os_hash);
+    } else {
+        $ssh_static{$pattern} = [ $os_hash ];
+    }
 }
 
 # Generic patterns
@@ -63,6 +85,7 @@ my $fmt = "%s | %s | %s | %s";
 
 # autoflush
 $| = 1;
+binmode STDOUT, ':utf8';
 
 while (<>) {
     chomp;
@@ -73,6 +96,27 @@ while (<>) {
     foreach my $key (keys %ssh) {
         if ($sshbanner eq $key) {
             $match = join(',', uniq(@{$ssh{$key}}));
+        }
+    }
+
+    foreach my $key (keys %ssh_static) {
+        if ($sshbanner =~ $key) {
+            $match = join(',',
+                          uniq(
+                              map {
+                                  my $text = $_->{os};
+                                  if (exists($_->{tags})) {
+                                      $text =
+                                          '['.
+                                          join(',', @{$_->{tags}}).
+                                          '] '.
+                                          $text;
+                                  }
+                                  $text;
+                              } @{$ssh_static{$key}},
+                              $match ? $match : ()
+                          )
+                );
         }
     }
 
