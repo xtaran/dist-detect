@@ -263,4 +263,5 @@ fallback:
 
   - cryptlib SSHd (maybe APC AOS):
       tags: [Embedded]
+      type: informational
       pattern: ^\QSSH-1.99-cryptlib\E$
