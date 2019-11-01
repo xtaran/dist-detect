@@ -69,7 +69,7 @@ fallback:
   - os: Ubuntu 14.04 LTS Trusty
     tags: [EoL, NoSecUpd]
     certainty: certain
-    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu\E(1|2|2\.([0-9]|1[0-2])$
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6.1p1 Ubuntu-2ubuntu\E(1|2|2\.([0-9]|1[0-2]))$
 
   - os: Ubuntu 14.04 LTS Trusty
     tags: [EoL, 'ESM?']
