@@ -19,6 +19,7 @@ fallback:
       pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Debian-4
 
   ### EoL Raspbian Releases
+  # Those no more listed on https://archive.raspbian.org/raspbian/dists/
 
   - Raspbian 7 Wheezy:
       tags: [EoL, RaspberryPi]
@@ -26,6 +27,9 @@ fallback:
       pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0p1 Raspbian-4\E\b
 
   ### EoL Ubuntu Releases
+  # https://launchpad.net/ubuntu/+source/openssh
+  # https://wiki.ubuntu.com/Releases
+  # http://old-releases.ubuntu.com/ubuntu/dists/
 
   - Ubuntu 4.10 Warty:
       tags: [EoL]
