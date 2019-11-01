@@ -25,8 +25,7 @@ use 5.010;
 use FindBin qw($Bin);
 
 use Mojo::SQLite;
-use YAML;
-use Path::Tiny;
+use YAML::Tiny;
 use List::Util qw(uniq);
 
 # TODO: Needs to be determined automatically and stored in DB.
@@ -55,9 +54,10 @@ while (my $next = $banners->hash) {
          $next->{source} =~ s/([^:]*:[^:]*):.*$/$1/r);
 }
 
-my $yaml = Load(path($ssh_yaml)->slurp_utf8);
+my $yaml = YAML::Tiny->read($ssh_yaml);
 use Data::Printer;
-my $ssh_static = $yaml->{fallback};
+p $yaml;
+my $ssh_static = $yaml->[0]{fallback};
 my %ssh_static = ();
 
 foreach my $os_hash (@$ssh_static) {
@@ -108,9 +108,11 @@ while (<>) {
                                    my $text = $_->{os};
                                    if (exists($_->{tags})) {
                                        $text =
-                                           '['.
+                                           ( ref $_->{tags} ?
+                                             '['.
                                              join(',', @{$_->{tags}}).
-                                             '] '.
+                                             '] ' :
+                                             $_->{tags} ).
                                            $text;
                                    }
                                    $text;
