@@ -55,8 +55,8 @@ while (my $next = $banners->hash) {
 }
 
 my $yaml = LoadFile($ssh_yaml);
-use Data::Printer;
-p $yaml;
+#use Data::Printer;
+#p $yaml;
 
 # YAML::Tiny supports multiple documents in one YAML file, just use
 # the first one
