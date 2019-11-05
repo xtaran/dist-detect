@@ -248,6 +248,14 @@ Ideas
   [ssh-audit](https://github.com/arthepsy/ssh-audit) as a signature
   for an OS. Needs a collection of signatures, though.
 
+* Maybe allow `scanhost.pl` to read scan targets from `STDIN` or use a
+  configuration file for batch scans, too.
+
+### Wishlist
+
+* A way to detect that some Linux distribution is running inside the
+  Windows Subsystem for Linux (WSL).
+
 
 License and Copyright
 ---------------------
