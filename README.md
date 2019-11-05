@@ -79,6 +79,8 @@ should be no real issue.)
 TODO
 ----
 
+* Consitent tags: NoSecUpd vs NO-UPD
+
 * Add package list downloaders and scrapers for CentOS, openSUSE and
   macOS.
 
