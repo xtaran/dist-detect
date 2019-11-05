@@ -24,6 +24,8 @@ use 5.010;
 use IO::Socket::INET6;
 use Net::DNS;
 use Net::CIDR::Set;
+use Getopt::Long qw(GetOptions);
+use Pod::Usage qw(pod2usage);
 
 our $VERSION = '0.1';
 
@@ -34,6 +36,20 @@ my $res = Net::DNS::Resolver->new();
 $| = 1;
 
 my @hosts = ();
+
+my $port = 22;
+my $help = 0;
+
+GetOptions(
+    "port|p=s" => \$port,
+    "help|h"   => \$help,
+    )
+    or pod2usage(-verbose => 2, -exitval => 1);
+
+if ($help) {
+    pod2usage(-verbose => 2, -exitval => 0);
+}
+
 foreach my $param (@ARGV) {
     if ($param =~ m(^[0-9.:]+(/\d+|-[0-9.:]+)$)) {
         push(@hosts, range2addr($param));
@@ -109,3 +125,35 @@ sub lookup {
 sub range2addr {
     return Net::CIDR::Set->new(@_)->as_address_array();
 }
+
+__END__
+
+=head1 NAME
+
+scanhost - Dist-Detect component to gather response data from hosts
+
+=head1 SYNOPSIS
+
+scanhost [B<--help>|B<-h>] [B<--port>|B<-p> I<default-ssh-port>] I<ip[:port]-or-cidr> [I<ip[:port]-or-cidr]>]
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>, B<-h>
+
+Show this help
+
+=item B<--port> I<default-ssh-port>, B<-p> I<default-ssh-port>
+
+Set the default SSH port. (Defaults to 22.)
+
+=back
+
+=head1 EXAMPLES
+
+C<scanhost -p 2222 198.51.100.0/24 2001:db8:2::/64 192.0.2.42:443 '[2001:db8::1]:2022'>
+
+Scans the networks C<198.51.100.0/24> and C<2001:db8:2::/64> on port
+C<2222> and the two single IP address with specific ports (those
+behind the colon).
