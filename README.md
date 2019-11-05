@@ -244,6 +244,10 @@ Ideas
   banner of a non-up-to-date or end-of-life version for SNORT (and
   hence also Suricata) and/or Zeek (formerly known as Bro).
 
+* Maybe also take the output of
+  [ssh-audit](https://github.com/arthepsy/ssh-audit) as a signature
+  for an OS. Needs a collection of signatures, though.
+
 
 License and Copyright
 ---------------------
