@@ -276,6 +276,7 @@ Further Ideas
     * [scanssh](http://www.monkey.org/~provos/scanssh/),
       [pnscan](https://github.com/ptrrkssn/pnscan),
       [masscan](https://github.com/robertdavidgraham/masscan),
+      [ZMap's ZGrab](https://github.com/zmap/zgrab] with its "x/crypto SSH scanner" plugin.
       [pf_ring](https://www.ntop.org/products/packet-capture/pf_ring/)?
     * [Shodan.io](https://www.shodan.io/)? (i.e. publicly available data)
 

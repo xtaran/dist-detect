@@ -202,11 +202,13 @@ Ideas
 
     * SSH:
         * [scanssh](http://www.monkey.org/~provos/scanssh/),
+        * [ZMap's ZGrab](https://github.com/zmap/zgrab] with its "x/crypto SSH scanner" plugin.
     * Any service which provides exact Linux kernel versions, like
       open Redis servers. ;-)
     * Generic TCP:
         * [pnscan](https://github.com/ptrrkssn/pnscan),
         * [masscan](https://github.com/robertdavidgraham/masscan),
+        * [ZMap](https://zmap.io/]?
         * [pf_ring](https://www.ntop.org/products/packet-capture/pf_ring/)?
     * Online (i.e. publicly available data):
         * [Shodan.io](https://www.shodan.io/)?

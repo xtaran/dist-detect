@@ -513,9 +513,9 @@ Dist-Detect: Ideas
 
 * Optional scanning backends
 
-** SSH: scanssh
+** SSH: scanssh, ZMap's ZGrab with its "x/crypto SSH scanner" plugin.
 
-** Generic TCP: pnscan, masscan, pf_ring?
+** Generic TCP: pnscan, masscan, ZMap, pf_ring?
 
 ** Every service which tells you the exact kernel version (like open
    Redis and MongoDB servers. ;-)
