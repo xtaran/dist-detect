@@ -146,7 +146,7 @@ the scripts in `bin/` with their relative or full path.
 TODO
 ----
 
-* Consitent tags: NoSecUpd vs NO-UPD
+* Consistent tags: `NoSecUpd` vs `NO-UPD`
 
 * Add package list downloaders and scrapers for CentOS, openSUSE and
   macOS.
