@@ -78,6 +78,9 @@ should be no real issue.)
 Requirements
 ------------
 
+TL;DR: `apt install libclass-c3-perl libdpkg-perl libdpkg-parse-perl libfile-touch-perl libio-socket-inet6-perl libmojolicious-perl libmojo-sqlite-perl libnet-cidr-set-perl libnet-dns-perl libparams-validate-perl libtry-tiny-perl libyaml-perl`
+
+
 Dist-Detect is written in **Perl (5.14 or a higher 5.x version)** and
 requires the following non-core Perl modules (CPAN distributions and
 Debian packages names in parentheses):
@@ -113,11 +116,11 @@ Debian packages names in parentheses):
 
 * [`Mojo::SQLite`](https://metacpan.org/pod/Mojo::SQLite)
   ([`Mojo-SQLite`](https://metacpan.org/release/Mojo-SQLite),
-  [`libmojo-sqlite-perl`](https://packages.debian.org/libmojo-sqlite-perl))
+  [`libmojo-sqlite-perl`](https://packages.debian.org/libmojo-sqlite-perl)¹)
 
 * [`Net::CIDR::Set`](https://metacpan.org/pod/Net::CIDR::Set)
   ([`Net-CIDR-Set`](https://metacpan.org/release/Net-CIDR-Set),
-  [`libnet-cidr-set-perl`](https://packages.debian.org/libnet-cidr-set-perl))
+  [`libnet-cidr-set-perl`](https://packages.debian.org/libnet-cidr-set-perl)¹)
 
 * [`Net::DNS`](https://metacpan.org/pod/Net::DNS)
   ([`Net-DNS`](https://metacpan.org/release/Net-DNS),
@@ -135,6 +138,7 @@ Debian packages names in parentheses):
   ([`YAML`](https://metacpan.org/release/YAML),
   [`libyaml-perl`](https://packages.debian.org/libyaml-perl))
 
+¹) Only available since Debian 10 _Buster_.
 
 Installation
 ------------
