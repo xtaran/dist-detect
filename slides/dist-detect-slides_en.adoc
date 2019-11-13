@@ -71,10 +71,11 @@ daemons. But most of them are slow, imprecise, or both:
 
 * Nmap:
 
-** Very slow, even with `-T aggressive`
+** Very slow, still takes seconds per host even with `-F -T
+   aggressive`.
 
-** operating system detection very inaccurate, just based on network
-   package metadata, not contents.
+** Operating system detection rather rough, just based on network
+   package metadata (e.g. TTL and TCP Window Size), not contents.
 
 ** Needs at least one closed and one open port to detect the operating
    system.

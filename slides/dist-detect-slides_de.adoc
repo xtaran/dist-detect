@@ -69,10 +69,12 @@ ungenau oder beides:
 
 * Nmap:
 
-** Sehr langsam, selbst mit `-T aggressive`
+** Sehr langsam; braucht selbst mit `-F -T aggressive` immer noch
+   mehrere Sekunden pro Host.
 
-** Betriebssystem-Erkennung sehr unpräzise, basiert nur auf
-   Netzwerkpaket-Eigenschaften, nicht Inhalten.
+** Betriebssystem-Erkennung eher grob, basiert nur auf
+   Netzwerkpaket-Eigenschaften (z.B. TTL und TCP Fenstergröße), nicht
+   Inhalten.
 
 ** Braucht mindestens einen offenen und einen geschlossenen Port zu
    Erkennung.
