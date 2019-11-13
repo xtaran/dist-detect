@@ -1,12 +1,11 @@
-Dist-Detect: A Low-Hanging-Fruit Distribution Detector
-======================================================
+Detecting Unix-/Linux Distributions and Missing Updates by Server Responses
+===========================================================================
 :author:    Axel Beckert <axel@beckert.ch>
 :backend:   slidy
 :data-uri:
 :max-width: 99%
 :icons:
 :duration:  45
-
 
 Agenda
 ------
@@ -15,13 +14,16 @@ Agenda
 
 * Data sources: Where do I find hints on the used distribution?
 
-* Implementation: current state and plans
+* Implementation "dist-detect": current state and plans
 
 Slides
 ~~~~~~
 
 * https://github.com/xtaran/dist-detect → slides → dist-detect-slides_en.adoc, oder
 * https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_en.adoc
+
+image:../images/guess_who_tux.svg[Guess Who]
+
 
 Motivation: Why?
 ----------------
