@@ -32,7 +32,7 @@ Motivation: Warum?
 Situationen
 ~~~~~~~~~~~
 
-* Große, heterogene Netzwerke mit vielen verschiedenen Admins.
+* Grosse, heterogene Netzwerke mit vielen verschiedenen Admins.
 * Überblick bekommen über ggf. unzureichend dokumentierte
   Server-Altlasten.
 * Verdacht auf Kompromitierung bei einem nicht persönlich bekannten
@@ -58,12 +58,12 @@ ungenau oder beides:
 * Nessus, OpenVAS & Co:
 
 ** Langsam, brauchen Minuten pro Server und Stunden bis Tage je nach
-   Netzwerkgröße
+   Netzwerkgrösse
 
 ** Suchen einzelne Lücken, nicht Gesamtzustand oder Klassifizierung.
 
 ** Nutzen Versionsnummern nur, um Aussagen über Verletzlichkeiten zu
-   machen. (Und das führt außerdem gerne noch zu False Positives.)
+   machen. (Und das führt ausserdem gerne noch zu False Positives.)
 
 ** Es belastet die zu überprüfenden Dienste und Server.
 
@@ -73,7 +73,7 @@ ungenau oder beides:
    mehrere Sekunden pro Host.
 
 ** Betriebssystem-Erkennung eher grob, basiert nur auf
-   Netzwerkpaket-Eigenschaften (z.B. TTL und TCP Fenstergröße), nicht
+   Netzwerkpaket-Eigenschaften (z.B. TTL und TCP Fenstergrösse), nicht
    Inhalten.
 
 ** Braucht mindestens einen offenen und einen geschlossenen Port zu
@@ -120,7 +120,7 @@ Na, die Distribution erraten?
 
 Genau: Das war ja einfach!
 
-Aber es geht genauer: Die Version verrät uns, daß es sich um ein
+Aber es geht genauer: Die Version verrät uns, dass es sich um ein
 Ubuntu 16.04 LTS (oder nahes Derivat) handelt, bei dem seit Anfang
 2018 keine OpenSSH-Updates - und wahrscheinlich auch sonst keine
 Sicherheitsupdates mehr eingespielt wurden.
@@ -238,7 +238,7 @@ $ dig +short version.bind CH TXT @a.nic.de
 Daten-Quellen 5/6: offene Redis-Server
 --------------------------------------
 
-An dieser Stelle wird klar, daß sich diese Art von Informationen nicht
+An dieser Stelle wird klar, dass sich diese Art von Informationen nicht
 nur zum Audit eigener Systeme eignen sondern auch für Pen-Testing &
 Co.
 
@@ -269,7 +269,7 @@ Hier erfahren wir auch entsprechend viel:
 
 * Betriebsystem ist RHEL 7 (wegen dem `el7` in der Kernel-Version)
 
-* Redis läuft in einem Container (Docker, etc.) weil die Prozeß-ID `1`
+* Redis läuft in einem Container (Docker, etc.) weil die Prozess-ID `1`
   ist, was eigentlich die des Init-Systems ist.
 
 * Intel/AMD 64-Bit Architektur
@@ -329,7 +329,7 @@ Schnell eine Idee bekommen,
 * was für eine Linux-/BSD-/Unix-Distribution und welches Release davon
   auf einem entfernten System läuft;
 
-* ob der Admin regelmäßig Sicherheitsaktualisierungen einspielt; und
+* ob der Admin regelmässig Sicherheitsaktualisierungen einspielt; und
 
 * ob das entfernte System ein Betriebsystem nutzt, das "End of Life" ist,
 
