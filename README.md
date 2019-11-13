@@ -1,6 +1,8 @@
 Dist-Detect
 ===========
 
+![Guess Who Tux](images/guess_who_tux.svg)
+
 Dist-Detect is an active commandline scanner to detect the Linux or
 Unix distribution running on a remote host by looking at the banners
 or responses of typical Unix netowrk services.
@@ -351,6 +353,14 @@ General Public License for more details.
 You should have received [a copy of the GNU General Public
 License](LICENSE.md) along with Dist-Detect.  If not, see
 <https://www.gnu.org/licenses/>.
+
+### Files with Different Licenses
+
+The `guess_who_tux` logo is derived from the [Tux
+logo](https://en.wikipedia.org/wiki/Tux_(mascot)) which is [under
+Public Domain](http://creativecommons.org/licenses/publicdomain/) and
+inspired by the ["Guess Who" t-shirts of Grazer Linuxtage
+2013](https://glt13.linuxtage.at/galerie/slide_GLT13_095715.html).
 
 
 Thanks!
