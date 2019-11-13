@@ -9,7 +9,7 @@ use Class::C3;
 use base 'DPKG::Parse';
 
 # DEBUG HELPER
-use Data::Printer;
+#use Data::Printer;
 
 sub new {
     my $self = shift;

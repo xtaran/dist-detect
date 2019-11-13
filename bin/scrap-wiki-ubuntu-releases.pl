@@ -25,7 +25,7 @@ use 5.010;
 use Mojo::UserAgent;
 use Mojo::SQLite;
 
-use Data::Printer;
+#use Data::Printer;
 
 my $url = 'https://wiki.ubuntu.com/Releases';
 
@@ -52,7 +52,7 @@ $res->dom->find('h3[id]')->each(
                 $_->find('td')->each(
                     sub {
                         my $text = $_->all_text;
-                        p $text;
+                        #p $text;
                     });
             });
     });

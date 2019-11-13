@@ -39,7 +39,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 
 # DEBUG HELPER
-use Data::Printer;
+#use Data::Printer;
 
 =head1 FUNCTIONS
 

@@ -33,7 +33,7 @@ use Dpkg::Compression::FileHandle;
 use App::DistDetect::SSH::Banner;
 
 # DEBUG HELPER
-use Data::Printer;
+#use Data::Printer;
 
 my $pkglistdir = path("$Bin/../package-lists")->make_path;
 my $schema_dir = path("$Bin/../sql")->make_path;
@@ -96,7 +96,7 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
                $tags);
 
     my @banners = expected_banner_from_version($version, $os);
-    p @banners;
+    #p @banners;
     foreach my $banner (@banners) {
         $db->query('replace into banner2version(version,os,banner,source) '.
                    'values (?, ?, ?, ?)',
@@ -174,7 +174,7 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
         # Also list the initial version for that release
         push(@upd_counter_values, $v_unchanged);
 
-        p @upd_counter_values;
+        #p @upd_counter_values;
 
         foreach my $no_sec_upd_version (@upd_counter_values) {
             say("$no_sec_upd_version | ".($local_tags?"[$local_tags] ":'').
@@ -186,7 +186,7 @@ foreach my $pkglist (glob("$pkglistdir/*Packages*")) {
                        path($pkglist)->stat->mtime, $local_tags);
 
             my @banners = expected_banner_from_version($no_sec_upd_version, $os);
-            p @banners;
+            #p @banners;
             foreach my $banner (@banners) {
                 $db->query('replace into banner2version(version,os,banner,source) '.
                            'values (?, ?, ?, ?)',

@@ -30,7 +30,7 @@ use FindBin qw($Bin);
 use File::Touch;
 use Try::Tiny;
 
-use Data::Printer;
+#use Data::Printer;
 
 our $VERSION = '0.1';
 our $HOMEPAGE = 'https://github.com/xtaran/dist-detect';
@@ -171,7 +171,7 @@ foreach my $base_url (@mirrors) {
             $distribution = ucfirst($base_url =~ s{^.*/([^/-]+)(-[^/]*)?/?$}{$1}r);
 
             my @debug = ( $base_url, $dist, $distribution, $version, $codename, $suite );
-            p @debug;
+            #p @debug;
         }
 
         my $main =
