@@ -75,6 +75,73 @@ migration path between each incarnation at the current stage of
 development. (But since the database can be easily regenerated, this
 should be no real issue.)
 
+Requirements
+------------
+
+Dist-Detect is written in **Perl (5.14 or higher)** and requires the
+following non-core Perl modules (CPAN distributions and Debian
+packages names in parentheses):
+
+* [`Class::C3`](https://metacpan.org/pod/Class::C3)
+  ([`Class-C3`](https://metacpan.org/release/Class-C3),
+  [`libclass-c3-perl`](https://packages.debian.org/libclass-c3-perl))
+
+* [`Dpkg::Compression::FileHandle`](https://metacpan.org/pod/Dpkg::Compression::FileHandle)
+  and [`Dpkg::Version`](https://metacpan.org/pod/Dpkg::Version)
+  ([`Dpkg`](https://metacpan.org/release/Dpkg),
+  [`libdpkg-perl`](https://packages.debian.org/libdpkg-perl))
+
+* [`DPKG::Parse::Packages`](https://metacpan.org/pod/DPKG::Parse::Packages)
+  ([`DPKG-Parse`](https://metacpan.org/release/DPKG-Parse),
+  [`libdpkg-parse-perl`](https://packages.debian.org/libdpkg-parse-perl))
+
+* [`File::Touch`](https://metacpan.org/pod/File::Touch)
+  ([`File-Touch`](https://metacpan.org/release/File-Touch),
+  [`libfile-touch-perl`](https://packages.debian.org/libfile-touch-perl))
+
+* [`IO::Socket::INET6`](https://metacpan.org/pod/IO::Socket::INET6)
+  ([`IO-Socket-INET6`](https://metacpan.org/release/IO-Socket-INET6),
+  [`libio-socket-inet6-perl`](https://packages.debian.org/libio-socket-inet6-perl))
+
+* [`Mojo::Collection`](https://metacpan.org/pod/Mojo::Collection),
+  [`Mojo::Date`](https://metacpan.org/pod/Mojo::Date),
+  [`Mojo::File`](https://metacpan.org/pod/Mojo::File),
+  [`Mojo::UserAgent`](https://metacpan.org/pod/Mojo::UserAgent) and
+  many more `Mojo::*` indirectly, like `Mojo::JSON`
+  ([`Mojolicious`](https://metacpan.org/release/Mojolicious),
+  [`libmojolicious-perl`](https://packages.debian.org/libmojolicious-perl))
+
+* [`Mojo::SQLite`](https://metacpan.org/pod/Mojo::SQLite)
+  ([`Mojo-SQLite`](https://metacpan.org/release/Mojo-SQLite),
+  [`libmojo-sqlite-perl`](https://packages.debian.org/libmojo-sqlite-perl))
+
+* [`Net::CIDR::Set`](https://metacpan.org/pod/Net::CIDR::Set)
+  ([`Net-CIDR-Set`](https://metacpan.org/release/Net-CIDR-Set),
+  [`libnet-cidr-set-perl`](https://packages.debian.org/libnet-cidr-set-perl))
+
+* [`Net::DNS`](https://metacpan.org/pod/Net::DNS)
+  ([`Net-DNS`](https://metacpan.org/release/Net-DNS),
+  [`libnet-dns-perl`](https://packages.debian.org/libnet-dns-perl))
+
+* [`Params::Validate`](https://metacpan.org/pod/Params::Validate)
+  ([`Params-Validate`](https://metacpan.org/release/Params-Validate),
+  [`libparams-validate-perl`](https://packages.debian.org/libparams-validate-perl))
+
+* [`Try::Tiny`](https://metacpan.org/pod/Try::Tiny)
+  ([`Try-Tiny`](https://metacpan.org/release/Try-Tiny),
+  [`libtry-tiny-perl`](https://packages.debian.org/libtry-tiny-perl))
+
+* [`YAML::Any`](https://metacpan.org/pod/YAML::Any)
+  ([`YAML`](https://metacpan.org/release/YAML),
+  [`libyaml-perl`](https://packages.debian.org/libyaml-perl))
+
+
+Installation
+------------
+
+None yet. Use it just from the checked out git repository by calling
+the scripts in `bin/` with their relative or full path.
+
 
 TODO
 ----
