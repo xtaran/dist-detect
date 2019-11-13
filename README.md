@@ -78,9 +78,9 @@ should be no real issue.)
 Requirements
 ------------
 
-Dist-Detect is written in **Perl (5.14 or higher)** and requires the
-following non-core Perl modules (CPAN distributions and Debian
-packages names in parentheses):
+Dist-Detect is written in **Perl (5.14 or a higher 5.x version)** and
+requires the following non-core Perl modules (CPAN distributions and
+Debian packages names in parentheses):
 
 * [`Class::C3`](https://metacpan.org/pod/Class::C3)
   ([`Class-C3`](https://metacpan.org/release/Class-C3),
