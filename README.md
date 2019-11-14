@@ -267,7 +267,8 @@ Ideas
 
 * Also store results and scan dates in a database.
 
-* Someone suggested to also look at SIP ports.
+* Someone suggested to also look at SIP, NTP, MDNS (Synology devices
+  seem to be quite chatty) and SSDP ports.
 
 * Parse package changelogs for existing versions.
 
