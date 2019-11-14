@@ -282,13 +282,13 @@ Ideas
     * Generic TCP:
         * [pnscan](https://github.com/ptrrkssn/pnscan),
         * [masscan](https://github.com/robertdavidgraham/masscan),
-        * [ZMap](https://zmap.io/]?
+        * [ZMap](https://zmap.io/)?
         * [pf_ring](https://www.ntop.org/products/packet-capture/pf_ring/)?
     * Online (i.e. publicly available data):
         * [Shodan.io](https://www.shodan.io/)?
 
 * Ping (probably with [fping](https://www.fping.org/) or
-  [ZMap](https://zmap.io/]) before scan.
+  [ZMap](https://zmap.io/)) before scan.
 
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions instead of or in
