@@ -287,7 +287,8 @@ Ideas
     * Online (i.e. publicly available data):
         * [Shodan.io](https://www.shodan.io/)?
 
-* Ping (likely with [fping](https://www.fping.org/)?) before scan.
+* Ping (probably with [fping](https://www.fping.org/) or
+  [ZMap](https://zmap.io/]) before scan.
 
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions instead of or in
