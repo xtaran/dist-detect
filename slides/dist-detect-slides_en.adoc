@@ -509,7 +509,10 @@ Dist-Detect: Ideas
 
 * Also save the scan results and scan dates in a database.
 
-* Check if SIP services can be used for this, too.
+* Check if SIP services can be used for this, too. Dito for NTP and SSDP.
+
+* Figure out, how to query build information from Synology NAS via
+  MDNS.
 
 * Parse package changelogs to get all previous package versions —
   instead of guessing.

@@ -506,7 +506,10 @@ Dist-Detect: Ideen
 
 * Auch die Scan-Ergebnisse und -Datumsangaben in einer Datenbank speichern.
 
-* Anschauen, ob sich SIP-Dienste auch hierfür eignen.
+* Anschauen, ob sich SIP-Dienste auch hierfür eignen. Dito. für NTP und SSDP.
+
+* Rausfinden, wie man bei Synology via MDNS die genauen
+  Build-Informationen auslesen kann.
 
 * Paket-Changelogs parsen um alle vergangenen Paketversionen zu finden
   — anstatt zu raten.
