@@ -103,7 +103,7 @@ Motivation: There are alternatives!
   version, especially OpenSSH.
 
 * Port 22 (SSH) is active on nearly every Linux/Unix server and often
-  reachable at least from internal networks,
+  reachable at least from internal networks.
 
 * Some daemons even tell you the kernel version under which they're
   running.
@@ -150,8 +150,8 @@ Protocol mismatch.
 Already more difficult. Might be a RHEL 7.4 onwards or a macOS 10.12.4
 to 10.12.6.
 
-Despite Red Hat Enterprise Linux is not a BSD, it misses the otherwise
-typical `p1` of the "portable"version of OpenSSH.
+TIP: Despite Red Hat Enterprise Linux is not a BSD, it misses the
+otherwise typical `p1` of the "portable"version of OpenSSH.
 
 But we can look at more than just SSH…
 
@@ -172,13 +172,10 @@ Server: Apache/2.4.6 (Red Hat Enterprise Linux)
 
 Now the previous ambiguity is gone: It's a RHEL 7.
 
-Hinweis
-~~~~~~~
-
-* Especially Apache nowadays doesn't even tell its version. But
-  especially the commercial distributions seem to value the effect of
-  global usage statistics more than not patching their daemons with
-  their product name… :-)
+TIP: Especially Apache nowadays doesn't even tell its version. But
+especially the commercial distributions seem to value the effect of
+global usage statistics more than not patching their daemons with
+their product name… :-)
 
 
 Data Sources 3/6: Mail Server
@@ -210,13 +207,13 @@ $ dig +short -t txt -c chaos version.bind @ams.sns-pb.isc.org
 "9.9.7-P2"
 $ dig +short version.bind CH TXT @a.iana-servers.net
 "Knot DNS 2.6.3"
- dig +short version.bind CH TXT @ns.nlnetlabs.nl
+$ dig +short version.bind CH TXT @ns.nlnetlabs.nl
 "NSD 4.2.2"
 $ dig +short version.bind CH TXT one-of-my-dns-servers
 "9.9.5-9+deb8u18-Debian"
 $ dig +short version.bind CH TXT some-rhel7
 "9.11.4-P2-RedHat-9.11.4-9.P2.el7"
-$ dig +short version.bind CH TXT anothe-rrhel7
+$ dig +short version.bind CH TXT another-rhel7
 "9.9.4-RedHat-9.9.4-74.el7_6.2"
 $ dig version.bind ch txt +short @127.0.0.1
 "unbound 1.9.4"
@@ -456,7 +453,7 @@ Dist-Detect: TODO
 
 * Make a difference between package repositories, in which the SSH
   signatures change often (with package version in the banner) and
-  those where they change seldemly (without package version in the banner).
+  those where they change seldomly (without package version in the banner).
 
 * Making the output more readable, maybe two variants:
 
@@ -537,7 +534,7 @@ Dist-Detect: Ideas
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions
 
-* Maybe yse https://www.wikidata.org/wiki/Q847062 and
+* Maybe use https://www.wikidata.org/wiki/Q847062 and
   https://www.wikidata.org/wiki/Special:EntityData/Q847062.json
 
 * Negative facts ("can't be a RedHat")

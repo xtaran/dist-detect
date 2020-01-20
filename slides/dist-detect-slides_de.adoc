@@ -146,7 +146,7 @@ Protocol mismatch.
 
 Schon schwieriger. Könnte u.a. ein RHEL 7.4 aufwärts als auch ein macOS 10.12.4 bis 10.12.6 sein.
 
-Obwohl Red Hat Enterprise Linux kein BSD ist, fehlt bei RHEL das
+TIP: Obwohl Red Hat Enterprise Linux kein BSD ist, fehlt bei RHEL das
 ansonsten so typische `p1` der "portable"-Version von OpenSSH.
 
 Aber wir haben ja noch mehr als nur SSH…
@@ -169,13 +169,10 @@ Server: Apache/2.4.6 (Red Hat Enterprise Linux)
 Damit ist die Uneindeutigkeit von vorhin schnell geklärt: Es ist ein
 RHEL 7.
 
-Hinweis
-~~~~~~~
-
-* Gerade Apache gibt heutzutage oft nicht einmal die Version mit
-  an. Aber insbesondere den kommerziellen Distributionen scheint der
-  Werbe- bzw. Statistik-Effekt ihres Produktnamens dann doch wichtig
-  zu sein…
+TIP: Gerade Apache gibt heutzutage oft nicht einmal die Version mit
+an. Aber insbesondere den kommerziellen Distributionen scheint der
+Werbe- bzw. Statistik-Effekt ihres Produktnamens dann doch wichtig zu
+sein…
 
 Daten-Quellen 3/6: Mail-Server
 ------------------------------
@@ -206,7 +203,7 @@ $ dig +short -t txt -c chaos version.bind @ams.sns-pb.isc.org
 "9.9.7-P2"
 $ dig +short version.bind CH TXT @a.iana-servers.net
 "Knot DNS 2.6.3"
- dig +short version.bind CH TXT @ns.nlnetlabs.nl
+$ dig +short version.bind CH TXT @ns.nlnetlabs.nl
 "NSD 4.2.2"
 $ dig +short version.bind CH TXT oneofmydnsservers
 "9.9.5-9+deb8u18-Debian"

@@ -1,0 +1,456 @@
+Detecting Unix-/Linux Distributions and Missing Updates by Server Responses
+===========================================================================
+:author:    Axel Beckert <axel@beckert.ch>
+:backend:   slidy
+:data-uri:
+:max-width: 99%
+:icons:
+:duration:  25
+
+Agenda
+------
+
+* Motivation
+
+* Where do I find hints on the used distribution?
+
+* Implementation "dist-detect": current state and plans
+
+Slides
+~~~~~~
+
+* https://github.com/xtaran/dist-detect → slides → dist-detect-slides_en_25.adoc, oder
+* https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_en_25.adoc
+
+image:../images/guess_who_tux.svg[Guess Who]
+
+
+Motivation: Why?
+----------------
+
+Situations
+~~~~~~~~~~
+
+* Big, heterogene networks with many different administrators
+* Potentially incomplete lists of inherited servers
+* Suspected compromise of somebody else's Linux/Unix machine
+
+Questions in these situations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Which distribution and which release is running on that machine?
+* Is the operating system "end of life"?
+* Are security updates applied?
+
+And you usually want the answers _fast_. :-)
+
+
+Motivation: Doesn't such tools already exist?
+---------------------------------------------
+
+There are many tools, which recognize operating systems and unpatched
+daemons. But most of them are slow, imprecise, or both:
+
+* Nessus, OpenVAS & Co:
+
+** Very slow, needs minutes per server.
+
+** They search for specific security holes.
+
+** They sometimes just use upstream version numbers to make statements
+   about security issues — often leads to false positives.
+   (Distributions just fix security issues without bumping the upstream
+   version.)
+
+** They might overload the checked service or server.
+
+* Nmap:
+
+** Slow, still takes seconds per host even with `-F -T
+   aggressive`.
+
+** OS detection rather rough, just based on network package metadata
+   (e.g. TTL and TCP Window Size), not contents.
+
+** Needs at least one closed and one open port to detect the OS.
+
+* p0f:
+
+** Only passive, not active
+
+** Inaccurate with modern operating systems.
+
+Scanning a whole /16 network (65536 IP addresses) takes a lot of time
+and isn't very precise. 😭
+
+
+Motivation: There are alternatives!
+-----------------------------------
+
+* Many daemons tell their version in every or some simple server
+  responses.
+
+* A specific daemon version is only shipped in one or a few
+  distribution releases.
+
+* Quite some packaged daemons tell their exact distribution package
+  version, especially OpenSSH.
+
+* Port 22 (SSH) is active on nearly every Linux/Unix server and often
+  reachable at least from internal networks.
+
+* Some daemons even tell you the kernel version under which they're
+  running.
+
+
+Data Sources 1/5: SSH
+---------------------
+
+.Example 1
+----
+$ echo 'foobar' | nc rancidbox 22
+SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.3
+Protocol mismatch.
+----
+
+Did you guess the distribution? Now that was easy!
+
+But there's more: The version number tells us that this is an Ubuntu
+16.04 LTS (or close derivative), which misses OpenSSH security updates
+mid-2018 - and probably other security updates, too.
+
+.Example 2
+----
+$ echo 'foobar' | nc ohoh 22
+SSH-2.0-OpenSSH_6.0p1 Debian-4+deb7u10
+Protocol mismatch.
+----
+
+Here is even the Debian release easily recognizable since the suffix
+`…+deb7u…` is only used for Debian 7 Wheezy updates. Wheezy's ELTS is
+EoL since New Year's Eve.
+
+.Example 3.1
+----
+$ echo 'foobar' | nc somewhat-ambiguous 22
+SSH-2.0-OpenSSH_7.4
+Protocol mismatch.
+----
+
+More difficult. RHEL 7.4+? Or macOS 10.12.4 to 10.12.6?
+
+TIP: Despite Red Hat Enterprise Linux is not a BSD, it lacks the
+otherwise typical `p1` of the "portable"version of OpenSSH.
+
+But there's more than just SSH…
+
+
+Data Sources 2/5: Web Server
+----------------------------
+
+Let's continue the previous example and have a look at another daemon:
+
+.Example 3.2
+----
+$ HEAD http://somewhat-ambiguous/
+200 OK
+Connection: close
+Date: […]
+Server: Apache/2.4.6 (Red Hat Enterprise Linux)
+----
+
+The ambiguity is now gone: It's a RHEL 7.4+
+
+TIP: Apache nowadays doesn't even tell its version. But especially the
+commercial distributions seem to value the effect of global usage
+statistics more than not patching their daemons with their product
+name… :-)
+
+
+Data Sources 3/5: Mail Server
+-----------------------------
+
+.Example 4
+----
+$ echo QUIT | nc my-mail-server 25
+220 my-mail-server ESMTP Postfix (Debian/GNU)
+221 2.0.0 Bye
+$ echo QUIT | nc a-friends-mail-server 25
+220-a-friends-mail-server ESMTP Proxmox
+221 2.0.0 Bye
+$ echo QUIT | nc another-mail-server 25
+220 another-mail-server ESMTP Exim 4.86_2 Ubuntu Thu, 10 Oct 2019 17:35:32 +0200
+221 another-mail-server closing connection
+----
+
+Here we often don't get the daemon version, but clearly the
+distribution.
+
+
+Data Sources 4/5: DNS Server
+----------------------------
+
+.Example 5
+----
+$ dig +short -t txt -c chaos version.bind @ams.sns-pb.isc.org
+"9.9.7-P2"
+
+$ dig +short version.bind CH TXT @a.iana-servers.net
+"Knot DNS 2.6.3"
+
+$ dig +short version.bind CH TXT @ns.nlnetlabs.nl
+"NSD 4.2.2"
+
+$ dig +short version.bind CH TXT one-of-my-dns-servers
+"9.9.5-9+deb8u18-Debian"
+
+$ dig +short version.bind CH TXT some-rhel7
+"9.11.4-P2-RedHat-9.11.4-9.P2.el7"
+
+$ dig +short version.bind CH TXT another-rhel7
+"9.9.4-RedHat-9.9.4-74.el7_6.2"
+
+$ dig version.bind ch txt +short @127.0.0.1
+"unbound 1.9.4"
+
+$ dig version.bind ch txt +short @192.168.1.1
+"dnsmasq-2.78"
+----
+
+Also DNS servers bespeak much.
+
+But not seldomly, they also reveal nothing or only what the
+administrators want to reveal explicitly:
+
+.Example 6
+----
+$ dig +short version.bind CH TXT @8.8.8.8
+
+$ dig +short version.bind CH TXT @a.ns.nic.cz
+
+$ dig +short version.bind CH TXT @ns2.switch.ch
+"contact dns-operation@switch.ch"
+
+$ dig +short version.bind CH TXT @a.nic.de
+"ns-1.de.nl1.bind"
+----
+
+
+Data Sources 5/5: Open Database Servers
+---------------------------------------
+
+At this point it becomes clear that this kind of information gathering
+is not only for analyzing internal systems but might also be helpful
+with e.g. pen-testing.
+
+Open Redis Servers
+~~~~~~~~~~~~~~~~~~
+
+.Example 7
+----
+$ redis-cli -h unintentionally-open-redis-server
+redis> info
+# Server
+redis_version:3.0.7
+redis_git_sha1:3c968ff0
+redis_git_dirty:0
+redis_build_id:51089de051945df4
+redis_mode:standalone
+os:Linux 3.10.0-957.21.3.el7.x86_64 x86_64
+arch_bits:64
+multiplexing_api:epoll
+atomicvar_api:atomic-builtin
+gcc_version:6.3.0
+process_id:1
+run_id:b770a8af038963f3d1b55358c2e376d0b5e00182
+tcp_port:6379
+uptime_in_seconds:1344070
+uptime_in_days:15
+[…]
+----
+
+This tells us a lot:
+
+* OS is RHEL 7 (because of the `el7` in the kernel version)
+
+* Redis runs inside a container (Docker, etc.) due to process ID `1` —
+  which is usually the pid of the init system.
+
+* Intel/AMD 64 bit architecture
+
+TIP: More examples at: https://www.shodan.io/search?query=6379
+
+Open MongoDB Servers
+~~~~~~~~~~~~~~~~~~~~
+
+It's one and the same thing for open MongoDB servers
+
+TIP: Examples at https://www.shodan.io/search?query=distmod
+
+
+Dist-Detect: Purpose
+--------------------
+
+Automating the so far manual analysis of daemon responses.
+
+Quickly getting an idea…
+
+* which Linux/BSD/Unix distribution and which release is running on a
+  remote system;
+
+* if the admin applies security updates regularly; and
+
+* if the remote system runs an OS release which is "end of life",
+
+only by looking at the responses of a few common network daemons — without disturbing the service.
+
+
+Focus on Low Hanging Fruits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* As *few false positives* as possible: If the program finds something
+  bad, it's also bad.
+
+* *False Negatives are expected*: Unknown or ambiguous versions
+  stay unknown or ambiguous.
+
+
+Dist-Detect: Components
+-----------------------
+
+Infrastructure / Cron Jobs
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Downloader: Downloads package lists and release information (EoL dates,
+  etc.) of configured distributions.
+
+* Scraper: parses these package lists and documents in a database,
+
+** which version is in which distribution and which release;
+
+** which old versionen have existed (calculated/guessed) and
+   are no more up to date;
+
+** issues tags like `EoL`, `LTS`, `ELTS`, `ESM`, `Backport`, `Ancient`
+  (older than the longest available support interval), `Bleeding Edge`
+  (newest OpenSSH version), …
+
+Operation: Scanning and Analysing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Scanner: collects daemon responses
+
+* Interpreter: interprets the daemon responses and searches in the
+  database for
+
+** according distributions and releases, and
+
+** tags
+
+
+Dist-Detect: State of the Project
+---------------------------------
+
+"Work in Progress"
+
+* A downloader and scraper for Debian, Ubuntu and Raspbian package
+  repositories exists.
+
+* An (SSH-) scanner (native) works and is relatively fast (ca. 10-15
+  seconds per /24 network), if all hosts are online.
+
+* The database-based interpreter works, but currently only knows
+  Debian and derivates. RHEL/CentOS and macOS are recognized via
+  static rules (configuration files).
+
+
+
+Dist-Detect: Plans
+------------------
+
+* Write a package list downloader and scraper for CentOS, openSUSE and
+  macOS (e.g. via opensource.apple.com).
+
+* Ping before scan (probably with fping)
+
+* Making the output more readable, maybe two variants:
+
+** human-readable
+
+** machine-readable
+
+** Or a format which offers both, maybe YAML.
+
+//* Debian 8 Jessie currently can be found on both, the normal mirrors
+//  as well as in the historic archive. This situation is currently not
+//  handled correctly.
+
+* Support further Debian derivates →
+  https://wiki.debian.org/Derivatives/Census
+
+** Supported distributions like Trisquel, Linux Mint, Kali Linux, …
+
+** Maybe Live CDs like Grml and Knoppix
+
+** Discontinued distributions (you want to detect them, too) like
+   Tanglu.
+
+* Save the currently newest OpenSSH version in the database.
+
+** Source: Maybe use APIs of https://repology.org/ or https://www.wikidata.org/
+
+* Unit Testing (Travis CI and friends)
+
+* Packaging (mostly CPAN and Debian)
+
+
+Dist-Detect: Ideas
+------------------
+
+* Also save the scan results and scan dates in a database.
+
+* Optional scanning backends
+
+** SSH: scanssh, ZMap's ZGrab with its "x/crypto SSH scanner" plugin.
+
+** Generic TCP: pnscan, masscan, ZMap, pf_ring?
+
+** Every service which tells you the exact kernel version (like open
+   Redis and MongoDB servers. ;-)
+
+** Online (i.e. publicly available data):
+
+*** Shodan.io?
+
+*** Nessus-/OpenVAS-Reports?
+
+* Query additionally services (HTTP/HTTPS, SMTP, DNS, etc.) only in case of
+  ambiguity? (Would mix gathering and interpreting. ☹)
+
+* Distinguish more between package repositories, in which the SSH
+  signatures change often and those where they change seldomly.
+
+* Figure out, how to query build information from Synology NAS via
+  MDNS.
+
+* Parse package changelogs to get all previous package versions —
+  instead of guessing. (Can have disadvantages, too.)
+
+* Negative facts ("can't be a RedHat")
+
+* Automatically generate SNORT/Suricata and/or Bro/Zeek rules for
+  banners of non-up-to-date or end-of-life version of SSH servers and
+  clients.
+
+
+Contact and Slides
+------------------
+
+Axel Beckert <axel@beckert.ch>
+
+Website + Git repository: https://github.com/xtaran/dist-detect
+
+Slides: https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_en_25.adoc
+
+Questions?
+~~~~~~~~~~
