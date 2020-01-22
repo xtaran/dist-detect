@@ -45,8 +45,8 @@ Questions in these situations
 And you usually want the answers _fast_. :-)
 
 
-Motivation: Doesn't such tools already exist?
----------------------------------------------
+Motivation: Don't such tools already exist?
+-------------------------------------------
 
 There are many tools, which recognize operating systems and unpatched
 daemons. But most of them are slow, imprecise, or both:
@@ -239,9 +239,9 @@ $ dig +short version.bind CH TXT @a.nic.de
 Data Sources 5/5: Open Database Servers
 ---------------------------------------
 
-At this point it becomes clear that this kind of information gathering
-is not only for analyzing internal systems but might also be helpful
-with e.g. pen-testing.
+... services you don't want to see exposed on the internet anyways.
+
+Might also be helpful with e.g. pen-testing.
 
 Open Redis Servers
 ~~~~~~~~~~~~~~~~~~
