@@ -276,7 +276,7 @@ Ideas
 
     * SSH:
         * [scanssh](http://www.monkey.org/~provos/scanssh/),
-        * [ZMap's ZGrab](https://github.com/zmap/zgrab] with its "x/crypto SSH scanner" plugin.
+        * [ZMap's ZGrab](https://github.com/zmap/zgrab) with its "x/crypto SSH scanner" plugin.
     * Any service which provides exact Linux kernel versions, like
       open Redis servers. ;-)
     * Generic TCP:
