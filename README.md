@@ -290,6 +290,16 @@ Ideas
 * Ping (probably with [fping](https://www.fping.org/) or
   [ZMap](https://zmap.io/)) before scan.
 
+* Integrate scanning via [Tor](https://www.torproject.org/).
+    * Just using `torify` works, but causes:
+        * error messages on STDERR
+        * long timeouts (minutes, i.e. very slow scanning)
+        * non-working DNS PTR lookup (should then use `tor-resolve -x`
+          internally)
+
+* Report a "no route to host" as potentially being a RedHat,
+  especially if other ports are reachable.
+
 * Maybe use https://repology.org/api and
   https://repology.org/project/openssh/versions instead of or in
   addition to scraping package lists. Probably filter returned list to
