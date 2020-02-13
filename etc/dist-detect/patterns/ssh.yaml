@@ -151,7 +151,7 @@ fallback:
     tags: [EoL]
     certainty: possible
     pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_4.3\E$
-    
+
   - os: RHEL/CentOS 6
     certainty: possible
     pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.3\E$
@@ -165,7 +165,7 @@ fallback:
     certainty: possible
     # This pattern might need improvement: SSH v1 still supported?
     pattern: ^\QSSH-2.0-OpenSSH_6.4\E$
-    
+
   - os: RHEL 7.1→3 / CentOS 7-1503→1611
     tags: [NoSecUpd]
     certainty: possible
@@ -184,7 +184,7 @@ fallback:
     tags: [EoL]
     certainty: possible
     pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.0\E$
-  
+
   # Apple: MacOS X, OS X, macOS; see https://opensource.apple.com/
 
   - os: Mac OS X 10.4 Tiger
