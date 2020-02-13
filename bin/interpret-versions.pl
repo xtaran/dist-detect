@@ -146,7 +146,7 @@ while (<>) {
              $sshbanner !~ /^SSH-/ and
 
              # Does not contain non-printable characters
-             $sshbanner !~ /[\x00-\x20\x7F-\xFF]/ and
+             $sshbanner !~ /[\x00-\x1F\x7F-\xFF]/ and
 
              (# Contains special characters not common in version strings
               $sshbanner =~ /[\\|%*#~&^{}!?\$"';=\`]/ or
