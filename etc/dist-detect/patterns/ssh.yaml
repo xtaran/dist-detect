@@ -265,3 +265,37 @@ fallback:
     tags: [Embedded]
     type: informational
     pattern: ^\QSSH-1.99-cryptlib\E$
+
+  - os: Cisco IOS < 12.2(11)T
+    tags: [Router, EoL]
+    type: informational
+    # Seen: SSH-1.5-Cisco-1.25
+    # See also https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_ssh/configuration/15-s/sec-usr-ssh-15-s-book/sec-secure-shell-v2.html#reference_22D8A38ACC4C4CE39B1944CA545AC750
+    pattern: ^SSH-1\.[0-5]-Cisco-\d
+
+  - os: Cisco IOS > 12.2(11)T
+    tags: [Router]
+    type: informational
+    # Seen: SSH-1.99-Cisco-1.25, SSH-2.0-Cisco-1.25, SSH-2.0-Cisco-2.0
+    pattern: ^SSH-(1\.99|2.0)-Cisco-\d
+
+  - os: WeOnlyDo! SSHServer
+    tags: [Windows, Application]
+    type: informational
+    pattern: "^\QSSH-2.0-WeOnlyDo "
+
+  - os: freeSSHd
+    tags: [Windows]
+    type: informational
+    # https://www.exploit-db.com/exploits/23080
+    pattern: "^\QSSH-2.0-WeOnlyDo "
+
+  - os: WeOnlyDo! SSHServer (.NET version)
+    tags: [Windows, Application]
+    type: informational
+    pattern: "^\QSSH-2.0-WeOnlyDo.Net"
+
+  - os: WeOnlyDo! SFTPServer
+    tags: [Windows, Application]
+    type: informational
+    pattern: "^\QSSH-2.0-WeOnlyDo-wodFTPD "
