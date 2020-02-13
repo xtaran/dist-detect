@@ -77,6 +77,9 @@ migration path between each incarnation at the current stage of
 development. (But since the database can be easily regenerated, this
 should be no real issue.)
 
+Includes (static) heuristics to also detect an [endlessh
+tarpit](https://old.reddit.com/r/netsec/comments/b4dwjl/endlessh_an_ssh_tarpit/).
+
 Requirements
 ------------
 

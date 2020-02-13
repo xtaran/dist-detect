@@ -138,6 +138,38 @@ while (<>) {
 
     if (defined $match) {
         say sprintf($fmt, $host, $addr, $match, $sshbanner);
+    # Heuristic to detect lines of endlessh like "~Cdu}o u1R'(E8",
+    # "m#4.<f2O\1324a91{e" "]23W3@S-Q*G?kz!>[o^ZQ?5T<[", "AaTK",
+    # "[ASr6ugu[HDRX,7RRn7~:O:u^", "a[2GKVA8iw<pTOnH$&&~s;<", "d8I9",
+    # etc. See https://nullprogram.com/blog/2019/03/22/
+    } elsif (# Is not an SSH protocol version line.
+             $sshbanner !~ /^SSH-/ and
+
+             # Does not contain non-printable characters
+             $sshbanner !~ /[\x00-\x20\x7F-\xFF]/ and
+
+             (# Contains special characters not common in version strings
+              $sshbanner =~ /[\\|%*#~&^{}!?\$"';=\`]/ or
+
+              # Starts with uncommon special characters
+              $sshbanner =~ m(^[,.:;/]) or
+
+              # Short and only letters
+              $sshbanner =~ /^[A-Za-z0-9]{2,4}/ or
+
+              # Contains unbalanced parentheses or brackets
+              $sshbanner =~ /^ [^[]* []]/x or
+              $sshbanner =~ /^ [^{]* [}]/x or
+              $sshbanner =~ /^ [^(]* [)]/x or
+              $sshbanner =~ /^ [^<]* [>]/x or
+              $sshbanner =~ / [[] [^]]* $/x or
+              $sshbanner =~ / [{] [^}]* $/x or
+              $sshbanner =~ / [(] [^)]* $/x or
+              $sshbanner =~ / [<] [^>]* $/x or
+
+              # Empty or very short banner
+              $sshbanner =~ /^.{0,4}$/)) {
+        say sprintf($fmt, $host, $addr, 'Endlessh tarpit?', $sshbanner);
     } else {
         say sprintf($fmt, $host, $addr, '[UNKNOWN]', $sshbanner);
     }
