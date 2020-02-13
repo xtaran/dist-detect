@@ -149,10 +149,16 @@ while (<>) {
              $sshbanner !~ /[\x00-\x1F\x7F-\xFF]/ and
 
              (# Contains special characters not common in version strings
-              $sshbanner =~ /[\\|\%*#~&^{}!?\$\"';=\`]/ or
+              $sshbanner =~ /[\\|\%*#~&^{}\$\"';=\`]/ or
 
               # Starts with uncommon special characters
-              $sshbanner =~ m(^[-,.:;/]) or
+              $sshbanner =~ m(^[-,.:;/_]) or
+
+              # Ends with uncommon special characters
+              $sshbanner =~ m([-,:;/_]$) or
+
+              # Uncommon special characters not at the end of a sentence
+              $sshbanner =~ m([!?][^ ?!]) or
 
               # Contains unbalanced parentheses or brackets
               $sshbanner =~ /^ [^[]* []]/x or
@@ -166,6 +172,16 @@ while (<>) {
 
               # Seldom, but still above-average endlessh banner start
               $sshbanner =~ /^XSH-/ or
+
+              # Just letters and numbers (and not just lowercase
+              # letters and one uppercase letter at the beginning)
+              ($sshbanner =~ /^[A-Za-z0-9]{5,}$/ and
+               $sshbanner =~ /[A-Z]/ and
+               $sshbanner =~ /[a-z0-9]/ and
+               $sshbanner !~ /^[A-Z][a-z]*$/) or
+
+              # Some more weird combinations not being a version number
+              $sshbanner =~ / \./ or
 
               # Empty or very short banner
               $sshbanner =~ /^.{0,4}$/)) {
