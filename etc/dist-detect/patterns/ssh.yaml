@@ -282,20 +282,20 @@ fallback:
   - os: WeOnlyDo! SSHServer
     tags: [Windows, Application]
     type: informational
-    pattern: "^\QSSH-2.0-WeOnlyDo "
+    pattern: '^\QSSH-2.0-WeOnlyDo '
 
   - os: freeSSHd
     tags: [Windows]
     type: informational
     # https://www.exploit-db.com/exploits/23080
-    pattern: "^\QSSH-2.0-WeOnlyDo "
+    pattern: '^\QSSH-2.0-WeOnlyDo '
 
   - os: WeOnlyDo! SSHServer (.NET version)
     tags: [Windows, Application]
     type: informational
-    pattern: "^\QSSH-2.0-WeOnlyDo.Net"
+    pattern: ^\QSSH-2.0-WeOnlyDo.Net
 
   - os: WeOnlyDo! SFTPServer
     tags: [Windows, Application]
     type: informational
-    pattern: "^\QSSH-2.0-WeOnlyDo-wodFTPD "
+    pattern: '^\QSSH-2.0-WeOnlyDo-wodFTPD '
