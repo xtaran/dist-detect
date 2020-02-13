@@ -341,6 +341,11 @@ Ideas
 * Maybe allow `scanhost.pl` to read scan targets from `STDIN` or use a
   configuration file for batch scans, too.
 
+* Maybe use
+  [Data::Password](https://metacpan.org/release/Data-Password) or
+  [Data::Password::Entropy](https://github.com/alistratov/data-password-entropy)
+  to better detect [endlessh](Data::Password::Entropy) pre-banners.
+
 ### Wishlist
 
 * A way to detect that some Linux distribution is running inside the
