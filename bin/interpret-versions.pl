@@ -164,6 +164,9 @@ while (<>) {
               $sshbanner =~ / [(] [^)]* $/x or
               $sshbanner =~ / [<] [^>]* $/x or
 
+              # Seldom, but still above-average endlessh banner start
+              $sshbanner =~ /^XSH-/ or
+
               # Empty or very short banner
               $sshbanner =~ /^.{0,4}$/)) {
         say sprintf($fmt, $host, $addr, 'Endlessh tarpit?', $sshbanner);
