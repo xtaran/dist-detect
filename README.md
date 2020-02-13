@@ -65,7 +65,7 @@ Work in Progress
 As of now, this work in progress.
 
 The inital prototype used hardcoded (and handcoded :-) regular
-expression (which were outdated quite quicly).
+expression (which were outdated quite quickly).
 
 Currently the package repositories of Debian, Ubuntu and Raspbian are
 checked for the current OpenSSH versions and then the result is stored
