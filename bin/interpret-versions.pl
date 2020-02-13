@@ -152,7 +152,7 @@ while (<>) {
               $sshbanner =~ /[\\|%*#~&^{}!?\$"';=\`]/ or
 
               # Starts with uncommon special characters
-              $sshbanner =~ m(^[,.:;/]) or
+              $sshbanner =~ m(^[-,.:;/]) or
 
               # Contains unbalanced parentheses or brackets
               $sshbanner =~ /^ [^[]* []]/x or
