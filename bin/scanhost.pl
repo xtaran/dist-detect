@@ -60,7 +60,7 @@ foreach my $param (@ARGV) {
 
 foreach my $host (@hosts) {
     my $sock = IO::Socket::INET6->new(PeerAddr => $host,
-                                      PeerPort => '22',
+                                      PeerPort => $port,
                                       Proto    => 'tcp',
                                       Timeout  => 2,
         );
