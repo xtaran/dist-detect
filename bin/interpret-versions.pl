@@ -149,7 +149,7 @@ while (<>) {
              $sshbanner !~ /[\x00-\x1F\x7F-\xFF]/ and
 
              (# Contains special characters not common in version strings
-              $sshbanner =~ /[\\|%*#~&^{}!?\$"';=\`]/ or
+              $sshbanner =~ /[\\|\%*#~&^{}!?\$\"';=\`]/ or
 
               # Starts with uncommon special characters
               $sshbanner =~ m(^[-,.:;/]) or
