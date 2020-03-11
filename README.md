@@ -25,8 +25,8 @@ Quickly get an idea …
 
 * … if the remote system is running an EoL release …
 
-… just by looking at the responses of a few common network services,
-i.e. very fast.
+… just by looking at the responses of a few common network services
+(or at [Shodan.io](https://www.shodan.io/)), i.e. very fast.
 
 This is especially useful in heterogenous networks (e.g. with BYOD or
 many self-managed machines) as common in academia, data-centers with a
@@ -80,10 +80,17 @@ should be no real issue.)
 Includes (static) heuristics to also detect an [endlessh
 tarpit](https://old.reddit.com/r/netsec/comments/b4dwjl/endlessh_an_ssh_tarpit/).
 
+There are scripts which scan hosts themselves (IPv4 as well as IPv6)
+and there's a script which queries
+[Shodan.io](https://www.shodan.io/)'s API. (The latter requires a free
+account there and an API key stored in `~/.shodan/api_key` as the
+officialy Shodan Python library does.)
+
+
 Requirements
 ------------
 
-TL;DR: `apt install libclass-c3-perl libdpkg-perl libdpkg-parse-perl libfile-touch-perl libio-socket-inet6-perl libmojolicious-perl libmojo-sqlite-perl libnet-cidr-set-perl libnet-dns-perl libparams-validate-perl libtry-tiny-perl libyaml-perl`
+TL;DR: `apt install libclass-c3-perl libdpkg-perl libdpkg-parse-perl libfile-touch-perl libio-socket-inet6-perl libmojolicious-perl libmojo-sqlite-perl libnet-cidr-set-perl libnet-dns-perl libparams-validate-perl libtry-tiny-perl libyaml-perl libdata-validate-ip-perl`
 
 
 Dist-Detect is written in **Perl (5.14 or a higher 5.x version)** and
@@ -93,6 +100,10 @@ Debian packages names in parentheses):
 * [`Class::C3`](https://metacpan.org/pod/Class::C3)
   ([`Class-C3`](https://metacpan.org/release/Class-C3),
   [`libclass-c3-perl`](https://packages.debian.org/libclass-c3-perl))
+
+* [`Data::Validate::IP`](https://metacpan.org/pod/Data::Validate::IP)
+  ([`Data-Validate-IP`](https://metacpan.org/release/Data-Validate-IP),
+  [`libdata-validate-ip-perl`](https://packages.debian.org/libdata-validate-ip-perl))
 
 * [`Dpkg::Compression::FileHandle`](https://metacpan.org/pod/Dpkg::Compression::FileHandle)
   and [`Dpkg::Version`](https://metacpan.org/pod/Dpkg::Version)
@@ -287,8 +298,7 @@ Ideas
         * [masscan](https://github.com/robertdavidgraham/masscan),
         * [ZMap](https://zmap.io/)?
         * [pf_ring](https://www.ntop.org/products/packet-capture/pf_ring/)?
-    * Online (i.e. publicly available data):
-        * [Shodan.io](https://www.shodan.io/)?
+    * Maybe further online ressources besides [Shodan.io](https://www.shodan.io/)?
 
 * Ping (probably with [fping](https://www.fping.org/) or
   [ZMap](https://zmap.io/)) before scan.
