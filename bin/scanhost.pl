@@ -26,6 +26,7 @@ use Net::DNS;
 use Net::CIDR::Set;
 use Getopt::Long qw(GetOptions);
 use Pod::Usage qw(pod2usage);
+use Data::Validate::IP qw(is_ip);
 
 our $VERSION = '0.1';
 
@@ -83,19 +84,7 @@ foreach my $host (@hosts) {
 
 sub lookup {
     my ($address, $sock) = @_;
-    if ($address =~ m(
-        # IPv4, not necessarily valid, would match 321.456.789.257
-        ^ ( \d{1,3} \. ){1,3} \d{1,3} $ |
-        # IPv6 without "::"
-        ^ ( [a-f0-9]{1,4} : ){7} [a-f0-9]{1,4} $ |
-        # IPv6 with "::" in the last place
-        ^ ( [a-f0-9]{1,4} : ){1,7} : [a-f0-9]{1,4} $ | # Abbreviated IPv6
-        # IPv6 with "::" somewhere inbetween, possibly too long address
-        ^ ( [a-f0-9]{1,4} : ){1,6} : ( [a-f0-9]{1,4} : ){1,6} [a-f0-9]{1,4} $ |
-        # IPv6 with "::" in the first place, like fe80::…
-        ^ [a-f0-9]{1,4} :: ( [a-f0-9]{1,4} : ){1,6} [a-f0-9]{1,4} $
-        )xi) {
-
+    if (is_ip($address)) {
         my $reply = $res->query($address, 'PTR');
         if ($reply) {
             foreach my $rr ($reply->answer) {
