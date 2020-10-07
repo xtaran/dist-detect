@@ -454,7 +454,7 @@ Resources
   Ubuntu](https://launchpad.net/ubuntu/+source/dropbear)
 
 * [Dropbear package of
-  SuSE/openSUS](https://software.opensuse.org/package/dropbear) (Only
+  SuSE/openSUSE](https://software.opensuse.org/package/dropbear) (Only
   community packages?)
 
 * [Early Dropbear upstream .deb packages (and upstream source tar balls)](https://matt.ucc.asn.au/dropbear/releases/)
