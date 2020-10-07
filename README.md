@@ -419,11 +419,15 @@ Resources
 * [More verbose slide deck (German) based on AsciiDoc and
   Slidy](https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_de.adoc)
 
-### OpenSSH Upstream
+### Upstream Release Notes / Change Logs
 
 * [OpenSSH Release Notes](https://www.openssh.com/releasenotes.html)
 
+* [Dropbear Changes](https://matt.ucc.asn.au/dropbear/CHANGES)
+
 ### Package Versions
+
+#### OpenSSH
 
 * [OpenSSH in the Debian Package
   Tracker](https://tracker.debian.org/pkg/openssh)
@@ -438,6 +442,22 @@ Resources
   SuSE/openSUSE](https://software.opensuse.org/package/openssh)
 
 * [Open Source Code in use at Apple](https://opensource.apple.com/)
+
+#### Dropbear
+
+* [CVE-2018-15599: Known Affected Software Configurations](https://nvd.nist.gov/vuln/detail/CVE-2018-15599/cpes?expandCpeRanges=true)
+
+* [Dropbear in the Debian Package
+  Tracker](https://tracker.debian.org/pkg/dropbear)
+
+* [Launchpad: Dropbear package in
+  Ubuntu](https://launchpad.net/ubuntu/+source/dropbear)
+
+* [Dropbear package of
+  SuSE/openSUS](https://software.opensuse.org/package/dropbear) (Only
+  community packages?)
+
+* [Early Dropbear upstream .deb packages (and upstream source tar balls)](https://matt.ucc.asn.au/dropbear/releases/)
 
 ### Specific Details
 
