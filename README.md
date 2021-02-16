@@ -408,11 +408,6 @@ Resources
 
 ### Slide Decks about Dist-Detect
 
-* [Short Slideshow via
-  GitPitch](https://gitpitch.com/xtaran/dist-detect) ([Source file
-  rendered as normal Markdown
-  file](https://github.com/xtaran/dist-detect/blob/master/PITCHME.md))
-
 * [More verbose slide deck (English) based on AsciiDoc and
   Slidy](https://github.com/xtaran/dist-detect/blob/master/slides/dist-detect-slides_en.adoc)
 
