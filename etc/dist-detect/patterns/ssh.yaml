@@ -140,6 +140,21 @@ fallback:
     certainty: possible
     pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6p1$
 
+  ### Fedora
+
+  - os: Fedora 38
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_9.0\E$
+
+  - os: Fedora 39
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_9.3\E$
+
+  - os: Fedora 40
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_9.6\E$
+
   ### Red Hat / CentOS
 
   - os: "RHL 7.3 (2002, pre-fedora)"
