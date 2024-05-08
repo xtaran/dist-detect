@@ -176,7 +176,13 @@ fallback:
     certainty: possible
     pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
 
-  # TODO: RHEL / CentOS 8
+  - os: RHEL 8
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.0\E$
+
+  - os: RHEL 9
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.7\E$
 
   # SuSE / SLES / openSUSE
 
