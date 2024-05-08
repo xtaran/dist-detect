@@ -347,12 +347,99 @@ fallback:
     certainty: possible
     pattern: ^\QSSH-2.0-OpenSSH_8.7\E$
 
-  # SuSE / SLES / openSUSE
+  # SuSE / SLE (SLES + SLED) / openSUSE
+  #
+  # https://software.opensuse.org/package/openssh
+  # https://de.wikipedia.org/wiki/OpenSUSE#Versionen
+  # https://de.wikipedia.org/wiki/SUSE_Linux_Enterprise_Server#Versionen
+
+  - os: SLES 8.1
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_3.4p1\E$
 
   - os: openSUSE 10.x / SLES 10.x
     tags: [EoL]
     certainty: possible
     pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.0\E$
+
+  - os: openSUSE 11.1 / SLE 11
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.1\E$
+
+  - os: openSUSE 11.4
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.8\E$
+
+  - os: openSUSE 12.1
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_5.8\E$
+
+  - os: openSUSE 12.2
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.0\E$
+
+  - os: openSUSE 12.3
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.1\E$
+
+  - os: openSUSE 13.1
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.2\E$
+
+  - os: openSUSE 13.2 / SLE 12
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6\E$
+
+  - os: openSUSE Leap 42.1 / SLE 12 SP1
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6\E$
+
+  - os: openSUSE Leap 42.2 / SLE 12 SP2
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_7.2\E$
+
+  - os: openSUSE Leap 42.3 / SLE 12 SP3
+    tags: [EoL]
+    certainty: possible
+    pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_7.2\E$
+
+  - os: openSUSE Leap 15.0 / SLE 15
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.6\E$
+
+  - os: openSUSE Leap 15.1 / SLE 15 SP1
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.9\E$
+
+  - os: SLE 15 SP2
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.1\E$
+
+  - os: openSUSE Leap 15.2
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.1\E$
+
+  - os: SLE 15 SP3
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.1\E$
+
+  - os: openSUSE Leap 15.3
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.1\E$
 
   # Apple: MacOS X, OS X, macOS; see https://opensource.apple.com/
 
