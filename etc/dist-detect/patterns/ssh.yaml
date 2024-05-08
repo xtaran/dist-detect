@@ -141,6 +141,9 @@ fallback:
     pattern: ^SSH-(2\.0|1\.99)\Q-OpenSSH_6.6p1$
 
   ### Fedora
+  #
+  # https://packages.fedoraproject.org/pkgs/openssh/openssh/
+  # https://bodhi.fedoraproject.org/updates/?packages=openssh
 
   - os: Fedora 21
     tags: [EoL]

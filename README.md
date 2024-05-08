@@ -436,6 +436,11 @@ Resources
 * [OpenSSH package of
   SuSE/openSUSE](https://software.opensuse.org/package/openssh)
 
+* [OpenSSH package of
+  Fedora](https://packages.fedoraproject.org/pkgs/openssh/openssh/)
+  and [its release
+  history](https://bodhi.fedoraproject.org/updates/?packages=openssh)
+
 * [Open Source Code in use at Apple](https://opensource.apple.com/)
 
 #### Dropbear
