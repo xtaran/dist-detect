@@ -142,6 +142,151 @@ fallback:
 
   ### Fedora
 
+  - os: Fedora 21
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_6.6.1\E$
+
+  - os: Fedora 22 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_6.\E[78]$
+
+  - os: Fedora 22
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_6.9\E$
+
+  - os: Fedora 23 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.\E[01]$
+
+  - os: Fedora 23
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.2\E$
+
+  - os: Fedora 24
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.2\E$
+
+  - os: Fedora 25 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.3\E$
+
+  - os: Fedora 25
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
+
+  - os: Fedora 26
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.5\E$
+
+  - os: Fedora 27
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.6\E$
+
+  - os: Fedora 28 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.\E[67]$
+
+  - os: Fedora 28
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.8\E$
+
+  - os: Fedora 29 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.8\E$
+
+  - os: Fedora 29
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.9\E$
+
+  - os: Fedora 30 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_7.9\E$
+
+  - os: Fedora 30
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.0\E$
+
+  - os: Fedora 31
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.1\E$
+
+  - os: Fedora 32 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.\E[12]$
+
+  - os: Fedora 32
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.3\E$
+
+  - os: Fedora 33 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.\E[23]$
+
+  - os: Fedora 33
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.4\E$
+
+  - os: Fedora 34 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.\E[345]$
+
+  - os: Fedora 34
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.6\E$
+
+  - os: Fedora 35 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.\E[56]$
+
+  - os: Fedora 35
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.7\E$
+
+  - os: Fedora 36 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.7\E$
+
+  - os: Fedora 36
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.8\E$
+
+  - os: Fedora 37
+    tags: [EoL]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.8\E$
+
+  - os: Fedora 38 (outdated)
+    tags: [EoL, NO-UPD]
+    certainty: possible
+    pattern: ^\QSSH-2.0-OpenSSH_8.8\E$
+
   - os: Fedora 38
     tags: [EoL]
     certainty: possible
