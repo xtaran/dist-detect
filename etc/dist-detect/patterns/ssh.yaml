@@ -336,11 +336,11 @@ fallback:
     certainty: possible
     pattern: ^\QSSH-2.0-OpenSSH_7.4\E$
 
-  - os: RHEL 8
+  - os: RHEL 8 / CentOS Stream 8 / AlmaLinux 8 / Rocky Linux 8
     certainty: possible
     pattern: ^\QSSH-2.0-OpenSSH_8.0\E$
 
-  - os: RHEL 9
+  - os: RHEL 9 / CentOS Stream 9 / AlmaLinux 9 / Rocky Linux 9
     certainty: possible
     pattern: ^\QSSH-2.0-OpenSSH_8.7\E$
 
