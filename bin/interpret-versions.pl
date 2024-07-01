@@ -29,7 +29,7 @@ use YAML::Any qw(LoadFile);
 use List::Util qw(uniq);
 
 # TODO: Needs to be determined automatically and stored in DB.
-my $latest = '9.7';
+my $latest = '9.8';
 
 my $schema_dir = "$Bin/../sql";
 my $db_dir = "$Bin/../db";
