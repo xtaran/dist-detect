@@ -515,6 +515,18 @@ fallback:
     certainty: possible
     pattern: ^\QSSH-2.0-OpenSSH_7.7\E$
 
+  ### Windows Server
+
+  - os: Windows Server 2019, Version 1809
+    tags: [Windows]
+    type: informational
+    pattern: ^\QSSH-2.0-OpenSSH_for_Windows_7.7\E$
+
+  - os: Windows Server 2022, Version 21H2
+    tags: [Windows]
+    type: informational
+    pattern: ^\QSSH-2.0-OpenSSH_for_Windows_8.1\E$
+
   ### Embedded
 
   - os: cryptlib SSHd (maybe APC AOS)
