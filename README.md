@@ -281,6 +281,8 @@ Ideas
 
 * Also store results and scan dates in a database.
 
+* Map SSH implementations and releases to CVE-IDs.
+
 * Someone suggested to also look at SIP, NTP, MDNS (Synology devices
   seem to be quite chatty) and SSDP ports.
 
