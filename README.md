@@ -13,6 +13,7 @@ and derivatives (Ubuntu, Raspbian, etc.), but HTTP/HTTPS, DNS (`dig
 version.bind ch txt +short @<IP>`) and SMTP might be a good data
 source as well.
 
+
 Purpose
 -------
 
@@ -36,6 +37,7 @@ lot of internet-facing, rented servers/racks, etc.
 
 * If the scanner finds something bad, it's quite sure → nearly no False Positives
 * Unknown or unclear versions stay unknown or unclear → will contain False Negatives
+
 
 Example
 -------
@@ -156,11 +158,13 @@ Debian packages names in parentheses):
 
 ¹) Only available since Debian 10 _Buster_.
 
+
 Installation
 ------------
 
 None yet. Use it just from the checked out git repository by calling
 the scripts in `bin/` with their relative or full path.
+
 
 Usage
 -----
