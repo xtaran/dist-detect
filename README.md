@@ -162,6 +162,29 @@ Installation
 None yet. Use it just from the checked out git repository by calling
 the scripts in `bin/` with their relative or full path.
 
+Usage
+-----
+
+Run in the following order:
+
+1. `bin/download-package-lists.pl` to gather the relevant data. It's
+   stored in the subdirectory `package-lists`. Expect at least 250 MB
+   of downloaded data.
+
+2. `bin/find-openssh-versions-in-package-lists.pl` to extract the
+   relevant information from the downloaded data. It's stored in the
+   file `db/pattern.db`. This SQLite database will probably around 1
+   MB and will become bigger after time.
+
+3. `bin/scanhost.pl 192.0.2.0/24 198.51.100.0/24 203.0.113.0/24 |
+   bin/interpret-versions.pl` to scan some IPs or IP ranges and
+   evaluate the result with regards to applied updated or end-of-life
+   operating systems. (Of course you can also do this in two steps and
+   save the raw scan result in a file and later interpret its
+   content.)
+
+   Both tools output pipe separated values.
+
 
 TODO
 ----
