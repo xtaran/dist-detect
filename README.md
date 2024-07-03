@@ -189,6 +189,8 @@ Run in the following order:
 
    Both tools output pipe separated values.
 
+   Use e.g. `bin/split-up-into-slash24.sh` to split up IP ranges into
+   /24 chunks for parallel scanning.
 
 TODO
 ----
