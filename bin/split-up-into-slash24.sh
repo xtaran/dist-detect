@@ -17,7 +17,9 @@ if [ -n "$*" ] ; then
         splitup_cidr_ranges
     done
 else
-    while read ip ; do
-        splitup_cidr_ranges
+    while read ips ; do
+        for ip in $ips; do
+            splitup_cidr_ranges
+        done
     done
 fi
