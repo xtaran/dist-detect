@@ -189,8 +189,23 @@ Run in the following order:
 
    Both tools output pipe separated values.
 
-   Use e.g. `bin/split-up-into-slash24.sh` to split up IP ranges into
-   /24 chunks for parallel scanning.
+### Helper Tools
+
+* Use `bin/split-up-into-slash24.sh` to split up IP ranges into /24
+  chunks for parallel scanning.
+
+  Understands CIDR ranges as commandline options as well as on STDIN.
+
+* `bin/scanhost-parallel.sh` uses above script to scan large IP ranges
+  splitted up into /24 chunks and scanning as many as the CPU provides
+  threads in parallel. Amount can be set via the `-p <n>` option to
+  override number of scans in parallel.
+
+  Understands CIDR ranges as commandline options as well as on STDIN.
+
+  Writes results to `log/<timestamp>/{raw,interpreted}/<ip-range>.log`
+  and interpreted results to STDOUT, too, to provide a progress
+  indicator.
 
 TODO
 ----
